@@ -27,9 +27,9 @@
 
 
 Sedna::XinputManager HelloWorld::manager = Sedna::XinputManager();
-Sedna::XinputController* HelloWorld::p1Controller = manager.getController(1);
+Sedna::XinputController* HelloWorld::p1Controller = manager.getController(0);
 Sedna::Stick HelloWorld::p1Sticks[] = {};
-Sedna::XinputController* HelloWorld::p2Controller = manager.getController(0);
+Sedna::XinputController* HelloWorld::p2Controller = manager.getController(1);
 
 // Print useful error message instead of segfaulting when files are not there.
 static void problemLoading(const char* filename)
@@ -51,8 +51,8 @@ bool HelloWorld::init()
     auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
     cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
 
-	p1Controller = manager.getController(1);
-	p2Controller = manager.getController(0);
+	p1Controller = manager.getController(0);
+	p2Controller = manager.getController(1);
 
 	manager.update();
 
