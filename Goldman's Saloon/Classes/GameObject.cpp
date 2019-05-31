@@ -10,7 +10,7 @@ namespace Sedna {
 		scene->addChild(hitbox->getDrawNode(), 9);
 		scene->addChild(sprite, 10);
 		srand(time(0));
-		id = rand();
+		id = rand() % rand();
 		gameObjects.push_back(this);
 		this->scene = scene;
 	}
