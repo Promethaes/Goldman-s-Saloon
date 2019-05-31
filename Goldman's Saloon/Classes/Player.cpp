@@ -66,8 +66,8 @@ namespace Sedna {
 				}
 			}
 
-			pProjectiles.front()->hitbox->getDrawNode()->removeFromParent();
-			pProjectiles.front()->sprite->removeFromParent();
+			//pProjectiles.front()->hitbox->getDrawNode()->removeFromParent();
+			//pProjectiles.front()->sprite->removeFromParent();
 			pProjectiles.erase(pProjectiles.begin());
 		}
 	}
