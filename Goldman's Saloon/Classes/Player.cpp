@@ -20,7 +20,7 @@ namespace Sedna {
 		pController->getTriggers(pTriggers);
 
 		if (pTriggers.RT > 0) {
-			if (gunTimer < 0.5f) {
+			if (gunTimer > 1.0f) {
 				gunTimer = 0;
 				hasShot = false;
 			}
@@ -49,9 +49,9 @@ namespace Sedna {
 							GameObject::gameObjects[i]->hitbox->setForce(cocos2d::Vec2(0, 500));
 			}
 
+		}
 			if (hasShot)
 				gunTimer += dt;
-		}
 	}
 	void Player::checkList()
 	{
