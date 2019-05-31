@@ -24,7 +24,7 @@ namespace Sedna {
 				gunTimer = 0;
 				hasShot = false;
 			}
-			if (gunTimer == 0) {
+			if (gunTimer == 0) { 
 				hasShot = true;
 				pProjectiles.push_back(new Projectile("HelloWorld.png", scene, hitbox->getLocation(), 5));
 
