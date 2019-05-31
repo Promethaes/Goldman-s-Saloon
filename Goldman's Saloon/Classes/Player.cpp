@@ -59,6 +59,8 @@ namespace Sedna {
 
 			for (int i = 0; i < GameObject::gameObjects.size(); i++) {
 				if (pProjectiles.front()->id == GameObject::gameObjects[i]->id) {
+					GameObject::gameObjects[i]->hitbox->getDrawNode()->removeFromParent();
+					GameObject::gameObjects[i]->sprite->removeFromParent();
 					GameObject::gameObjects.erase(GameObject::gameObjects.begin() + i);
 					i--;
 				}
