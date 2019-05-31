@@ -6,14 +6,16 @@ namespace Sedna {
 	class GameObject {
 	public:
 		GameObject(const char* path,cocos2d::Scene* scene, const cocos2d::Vec2 &LOCATION, float RADIUS, float ANGLE = 5, unsigned int SEGMENTS = 50);
-
 		void updateGO(float dt);
 		///<every single game object should have its own update that calls updateGO>
 		virtual void update(float dt) = 0;
 
 		static std::vector<GameObject*> gameObjects;
 		CirclePrimitive* hitbox;
-	private:
 		cocos2d::Sprite* sprite;
+		unsigned short id = 0;
+		//only make this true if something should be deleted
+	protected:
+		cocos2d::Scene* scene;
 	};
 }

@@ -29,6 +29,7 @@
 Sedna::XinputManager HelloWorld::manager = Sedna::XinputManager();
 Sedna::XinputController* HelloWorld::p1Controller = manager.getController(0);
 Sedna::Stick HelloWorld::p1Sticks[] = {};
+Sedna::Triggers HelloWorld::p1Triggers;
 Sedna::XinputController* HelloWorld::p2Controller = manager.getController(1);
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -53,6 +54,10 @@ bool HelloWorld::init()
 
 	p1Controller = manager.getController(0);
 	p2Controller = manager.getController(1);
+
+		///<include the following lines in the update function of the child scene if you want triggers and sticks to work for player 1. repeat for player 2>
+	//p1Controller->updateSticks(p1Sticks);
+	//p1Controller->getTriggers(p1Triggers);
 
 	manager.update();
 

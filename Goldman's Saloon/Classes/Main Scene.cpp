@@ -18,8 +18,8 @@ void MainScene::update(float dt)
 {
 	manager.update();
 	p1Controller->updateSticks(p1Sticks);
-	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) {
+	p1Controller->getTriggers(p1Triggers);
+	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) 
 		Sedna::GameObject::gameObjects[i]->update(dt);
-	}
 
 }

@@ -152,6 +152,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Main Scene.cpp" />
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Player.cpp" />
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Primitive.cpp" />
+    <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Projectile.cpp" />
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\XinputManager.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />

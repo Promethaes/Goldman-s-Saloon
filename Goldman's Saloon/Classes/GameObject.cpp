@@ -8,8 +8,11 @@ namespace Sedna {
 		sprite = cocos2d::Sprite::create(path);
 		scene->addChild(hitbox->getDrawNode(), 9);
 		scene->addChild(sprite, 10);
+		id += gameObjects.size();
 		gameObjects.push_back(this);
+		this->scene = scene;
 	}
+	
 	void GameObject::updateGO(float dt)
 	{
 		hitbox->update(dt);

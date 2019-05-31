@@ -41,6 +41,7 @@ public:
 	static Sedna::XinputManager manager;
 	static Sedna::XinputController* p1Controller;
 	static Sedna::Stick p1Sticks[2];
+	static Sedna::Triggers p1Triggers;
 	static Sedna::XinputController* p2Controller;
 };
 
