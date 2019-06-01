@@ -33,6 +33,7 @@ namespace Sedna {
 
 				///<LEAVE THIS. this is what sets the dt member variable. if you remove this, projectiles will not work properly!>
 				pProjectiles.back()->update(dt);
+
 				if (pSticks[1].x > DEADZONE || pSticks[1].x < -DEADZONE || pSticks[1].y > DEADZONE || pSticks[1].y < -DEADZONE) {
 					auto direction = cocos2d::Vec2(pSticks[1].x, pSticks[1].y);
 					auto force = direction / sqrt(direction.x*direction.x + direction.y*direction.y);//normalized vector

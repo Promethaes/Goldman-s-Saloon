@@ -7,7 +7,7 @@ bool MainScene::init()
 		return false;
 	}
 
-	playerOne = new Sedna::Player(p1Controller, "HelloWorld.png",this);
+	playerOne = new Sedna::Player(p1Controller, "player1.png",this);
 
 	this->scheduleUpdate();
 

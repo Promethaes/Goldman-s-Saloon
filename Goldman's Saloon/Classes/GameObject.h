@@ -13,7 +13,6 @@ namespace Sedna {
 		static std::vector<GameObject*> gameObjects;
 		CirclePrimitive* hitbox;
 		cocos2d::Sprite* sprite;
-		//only make this true if something should be deleted
 	protected:
 		cocos2d::Scene* scene;
 	};
