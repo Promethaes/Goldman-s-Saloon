@@ -7,6 +7,7 @@ namespace Sedna {
 		:GameObject(path, scene, LOCATION, RADIUS)
 	{
 		pController = CONTROLLER;
+		id = "Player";
 	}
 	void Player::update(float dt)
 	{
@@ -23,13 +24,13 @@ namespace Sedna {
 		pController->getTriggers(pTriggers);
 
 		if (pTriggers.RT > 0) {
-			if (gunTimer > 1.0f) {
+			if (gunTimer > 0.5f) {
 				gunTimer = 0;
 				hasShot = false;
 			}
 			if (gunTimer == 0) {
 				hasShot = true;
-				pProjectiles.push_back(new Projectile("HelloWorld.png", scene, hitbox->getLocation(), 5));
+				pProjectiles.push_back(new Projectile("Bullet2.png", scene, hitbox->getLocation(), 5));
 
 				///<LEAVE THIS. this is what sets the dt member variable. if you remove this, projectiles will not work properly!>
 				pProjectiles.back()->update(dt);
@@ -69,9 +70,9 @@ namespace Sedna {
 			auto force = direction / sqrt(direction.x*direction.x + direction.y*direction.y);//normalized vector
 
 			hitbox->setForce(cocos2d::Vec2((pSticks[0].x > DEADZONE || pSticks[0].x < -DEADZONE) ?
-				force.x * 250 : 0.0f,
+				force.x * 300 : 0.0f,
 				(pSticks[0].y > DEADZONE || pSticks[0].y < -DEADZONE) ?
-				force.y * 250 : 0.0f));
+				force.y * 300 : 0.0f));
 		}
 
 	}

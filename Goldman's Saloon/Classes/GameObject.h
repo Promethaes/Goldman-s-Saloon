@@ -13,6 +13,9 @@ namespace Sedna {
 		static std::vector<GameObject*> gameObjects;
 		CirclePrimitive* hitbox;
 		cocos2d::Sprite* sprite;
+		
+		//optional id. Thinking about using this for collision checks.
+		std::string id = "";
 	protected:
 		cocos2d::Scene* scene;
 	};

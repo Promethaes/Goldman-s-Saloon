@@ -1,5 +1,6 @@
 #include "Main Scene.h"
-
+#include "Primitive.h"
+#define GameObjects Sedna::GameObject::gameObjects
 bool MainScene::init()
 {
 	if (!HelloWorld::init())
@@ -8,6 +9,8 @@ bool MainScene::init()
 	}
 
 	playerOne = new Sedna::Player(p1Controller, "player1.png",this);
+	tables.push_back(new Sedna::Table(this,cocos2d::Vec2(200,200)));
+
 
 	this->scheduleUpdate();
 
@@ -19,6 +22,21 @@ void MainScene::update(float dt)
 	manager.update();
 	p1Controller->updateSticks(p1Sticks);
 	p1Controller->getTriggers(p1Triggers);
+
+	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) 
+		for (int j = 0; j < Sedna::GameObject::gameObjects.size(); j++) {
+			if (i == j)
+				continue;
+			if (GameObjects[i]->id == "Player" && GameObjects[j]->id != "Player" && GameObjects[i]->hitbox->checkCollision(*GameObjects[j]->hitbox)) {
+				auto norm = GameObjects[i]->hitbox->getVelocity() / sqrt(GameObjects[i]->hitbox->getVelocity().x*GameObjects[i]->hitbox->getVelocity().x + GameObjects[i]->hitbox->getVelocity().y*GameObjects[i]->hitbox->getVelocity().y);
+
+				GameObjects[i]->hitbox->setForce(-norm*250);
+			}
+			
+			
+		}
+
+
 	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) 
 		Sedna::GameObject::gameObjects[i]->update(dt);
 

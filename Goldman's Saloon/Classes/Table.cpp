@@ -4,6 +4,7 @@ namespace Sedna {
 	Sedna::Table::Table(cocos2d::Scene * scene, const cocos2d::Vec2 & LOCATION, float RADIUS)
 		:GameObject("Table.png",scene,LOCATION,RADIUS)
 	{
+		id = "Table";
 	}
 	void Table::update(float dt)
 	{
