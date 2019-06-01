@@ -8,6 +8,8 @@ namespace Sedna {
 	{
 		pController = CONTROLLER;
 		id = "Player";
+		hitbox->getDrawNode()->setZOrder(10);
+		sprite->setZOrder(11);
 	}
 	void Player::update(float dt)
 	{
