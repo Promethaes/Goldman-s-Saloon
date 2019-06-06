@@ -49,6 +49,7 @@ namespace Sedna {
 		cocos2d::DrawNode* getDrawNode() const;
 		void update(float dt);
 		void addForce(float vX, float vY);
+		void addForce(const cocos2d::Vec2& v);
 		void setForce(cocos2d::Vec2 v);
 		void setLocation(cocos2d::Vec2 p);//test function 
 		cocos2d::Vec2 getVelocity() const;
@@ -58,6 +59,7 @@ namespace Sedna {
 
 		bool checkCloseTouching(CirclePrimitive other);
 
+		float dt = 0.0f;
 	private:
 		cocos2d::Vec2 location;
 		float radius;
@@ -67,7 +69,6 @@ namespace Sedna {
 		cocos2d::DrawNode* Node;
 		bool isTumble;
 
-		float dt = 0.0f;
 	};
 
 }

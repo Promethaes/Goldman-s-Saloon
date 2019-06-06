@@ -60,7 +60,7 @@ namespace Sedna {
 			pProjectiles.front()->sprite->removeFromParent();
 			pProjectiles.erase(pProjectiles.begin());
 		}
-		
+
 	}
 	void Player::checkInput()
 	{
@@ -71,10 +71,10 @@ namespace Sedna {
 			auto direction = cocos2d::Vec2(pSticks[0].x, pSticks[0].y);
 			auto force = direction / sqrt(direction.x*direction.x + direction.y*direction.y);//normalized vector
 
-			hitbox->setForce(cocos2d::Vec2((pSticks[0].x > DEADZONE || pSticks[0].x < -DEADZONE) ?
-				force.x * 300 : 0.0f,
+			hitbox->addForce((pSticks[0].x > DEADZONE || pSticks[0].x < -DEADZONE) ?
+				force.x * 25 : 0.0f,
 				(pSticks[0].y > DEADZONE || pSticks[0].y < -DEADZONE) ?
-				force.y * 300 : 0.0f));
+				force.y * 25 : 0.0f);
 		}
 
 	}
