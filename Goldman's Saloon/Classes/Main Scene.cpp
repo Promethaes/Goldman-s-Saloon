@@ -27,20 +27,11 @@ void MainScene::update(float dt)
 		for (int j = 0; j < Sedna::GameObject::gameObjects.size(); j++) {
 			if (i == j)
 				continue;
-			if (GameObjects[i]->id == "Player" && GameObjects[j]->id != "Player" && GameObjects[i]->hitbox->checkCollision(*GameObjects[j]->hitbox)) {
-				//auto norm = GameObjects[i]->hitbox->getVelocity() / sqrt(GameObjects[i]->hitbox->getVelocity().x*GameObjects[i]->hitbox->getVelocity().x + GameObjects[i]->hitbox->getVelocity().y*GameObjects[i]->hitbox->getVelocity().y);
-
-				auto distance = cocos2d::Vec2(GameObjects[i]->hitbox->getLocation() - GameObjects[j]->hitbox->getLocation());
-
+			if (GameObjects[i]->id == "Player" && GameObjects[j]->id != "Player" && GameObjects[i]->hitbox->checkCollision(*GameObjects[j]->hitbox))
 				GameObjects[i]->hitbox->setLocation(GameObjects[i]->hitbox->getLocation() - GameObjects[i]->hitbox->getVelocity());
-			//	GameObjects[i]->hitbox->setForce(distance * 2);
-
-				/////GameObjects[i]->hitbox->setForce(-norm*250);
-				/////send it back in time 10 frames?!?
-				///GameObjects[i]->hitbox->dt += 10*dt;
-			}
 
 
+				
 		}
 
 
