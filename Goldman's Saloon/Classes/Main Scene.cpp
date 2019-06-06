@@ -32,7 +32,8 @@ void MainScene::update(float dt)
 
 				auto distance = cocos2d::Vec2(GameObjects[i]->hitbox->getLocation() - GameObjects[j]->hitbox->getLocation());
 
-				GameObjects[i]->hitbox->setForce(distance*2);
+				GameObjects[i]->hitbox->setLocation(GameObjects[i]->hitbox->getLocation() - GameObjects[i]->hitbox->getVelocity());
+			//	GameObjects[i]->hitbox->setForce(distance * 2);
 
 				/////GameObjects[i]->hitbox->setForce(-norm*250);
 				/////send it back in time 10 frames?!?
