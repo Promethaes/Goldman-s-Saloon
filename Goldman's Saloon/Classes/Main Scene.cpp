@@ -23,15 +23,6 @@ void MainScene::update(float dt)
 	p1Controller->updateSticks(p1Sticks);
 	p1Controller->getTriggers(p1Triggers);
 
-	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++)
-		for (int j = 0; j < Sedna::GameObject::gameObjects.size(); j++) {
-			if (i == j)
-				continue;
-			if (GameObjects[i]->id == "Player" && GameObjects[j]->id != "Player" && GameObjects[i]->hitbox->checkCollision(*GameObjects[j]->hitbox))
-				GameObjects[i]->hitbox->setLocation(GameObjects[i]->hitbox->getLocation() - GameObjects[i]->hitbox->getVelocity());
-		}
-
-
 	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) {
 		if (GameObjects[i]->hp <= 0) {
 			GameObjects[i]->hitbox->getDrawNode()->removeFromParent();
@@ -42,7 +33,18 @@ void MainScene::update(float dt)
 			GameObjects.erase(GameObjects.begin() + i);
 			i--;
 		}
-		Sedna::GameObject::gameObjects[i]->update(dt);
 	}
+	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) {
+
+		for (int j = 0; j < Sedna::GameObject::gameObjects.size(); j++) {
+			if (i == j)
+				continue;
+			if (GameObjects[i]->id == "Player" && GameObjects[j]->id != "Player" && GameObjects[i]->hitbox->checkCollision(*GameObjects[j]->hitbox))
+				GameObjects[i]->hitbox->setLocation(GameObjects[i]->hitbox->getLocation() - GameObjects[i]->hitbox->getVelocity());
+		}
+		Sedna::GameObject::gameObjects[i]->update(dt);
+
+	}
+
 
 }

@@ -42,7 +42,9 @@
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Table.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Enemy.cpp" />
+    <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Enemy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
