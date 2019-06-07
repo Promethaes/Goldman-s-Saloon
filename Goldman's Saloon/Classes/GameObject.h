@@ -9,6 +9,7 @@ namespace Sedna {
 		void updateGO(float dt);
 		///<every single game object should have its own update that calls updateGO>
 		virtual void update(float dt) = 0;
+		virtual void die();
 
 		static std::vector<GameObject*> gameObjects;
 		CirclePrimitive* hitbox;
@@ -16,6 +17,7 @@ namespace Sedna {
 		
 		//optional id. Thinking about using this for collision checks.
 		std::string id = "";
+		unsigned hp;
 	protected:
 		cocos2d::Scene* scene;
 	};

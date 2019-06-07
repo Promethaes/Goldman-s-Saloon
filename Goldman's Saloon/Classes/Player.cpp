@@ -10,14 +10,33 @@ namespace Sedna {
 		id = "Player";
 		hitbox->getDrawNode()->setZOrder(10);
 		sprite->setZOrder(11);
+		hp = 3;
 	}
 	void Player::update(float dt)
 	{
 		checkInput();
 		shoot(dt);
 		checkList();
-		for (int i = 0; i < pProjectiles.size(); i++)
-			pProjectiles[i]->update(dt);
+
+		for (int i = 0; i < GameObject::gameObjects.size(); i++) {
+			for (int j = 0; j < pProjectiles.size(); j++) {
+				if (GameObject::gameObjects[i]->id != "Player" && GameObject::gameObjects[i]->id != "Table"&&
+					pProjectiles[j]->hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox)) {
+
+					GameObject::gameObjects[i]->hp--;/*change this to gun's dmaage when you can*/
+
+					pProjectiles[j]->hitbox->getDrawNode()->removeFromParent();
+					pProjectiles[j]->sprite->removeFromParent();
+					pProjectiles.erase(pProjectiles.begin() + j);
+					j--;
+
+				}
+					
+			}
+		}
+
+		for (auto x : pProjectiles)
+			x->update(dt);
 
 		updateGO(dt);
 	}

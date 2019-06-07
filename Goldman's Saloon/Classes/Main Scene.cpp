@@ -10,7 +10,7 @@ bool MainScene::init()
 
 	playerOne = new Sedna::Player(p1Controller, "player1.png", this);
 	tables.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200)));
-
+	outlaws.push_back(new Sedna::Outlaw(this, cocos2d::Vec2(300, 200)));
 
 	this->scheduleUpdate();
 
@@ -29,13 +29,20 @@ void MainScene::update(float dt)
 				continue;
 			if (GameObjects[i]->id == "Player" && GameObjects[j]->id != "Player" && GameObjects[i]->hitbox->checkCollision(*GameObjects[j]->hitbox))
 				GameObjects[i]->hitbox->setLocation(GameObjects[i]->hitbox->getLocation() - GameObjects[i]->hitbox->getVelocity());
-
-
-				
 		}
 
 
-	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++)
+	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) {
+		if (GameObjects[i]->hp <= 0) {
+			GameObjects[i]->hitbox->getDrawNode()->removeFromParent();
+			GameObjects[i]->sprite->removeFromParent();
+			GameObjects[i]->die();
+
+
+			GameObjects.erase(GameObjects.begin() + i);
+			i--;
+		}
 		Sedna::GameObject::gameObjects[i]->update(dt);
+	}
 
 }

@@ -2,6 +2,7 @@
 #include "HelloWorldScene.h"
 #include "Player.h"
 #include "Table.h"
+#include "Enemy.h"
 class MainScene : public HelloWorld {
 public:
 
@@ -12,4 +13,5 @@ public:
 	
 	Sedna::Player* playerOne;
 	std::vector<Sedna::Table*> tables;
+	std::vector<Sedna::Outlaw*> outlaws;
 };

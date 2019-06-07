@@ -42,6 +42,7 @@
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Table.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -72,6 +73,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Table.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Enemy.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

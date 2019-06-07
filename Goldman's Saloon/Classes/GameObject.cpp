@@ -20,4 +20,7 @@ namespace Sedna {
 		hitbox->update(dt);
 		sprite->setPosition(hitbox->getLocation());
 	}
+	void GameObject::die()
+	{
+	}
 }
