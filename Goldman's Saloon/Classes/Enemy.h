@@ -6,6 +6,7 @@ namespace Sedna {
 	class Outlaw : public GameObject {
 	public:
 		Outlaw(cocos2d::Scene* scene, const cocos2d::Vec2& LOCATION, const char* path = "outlawLl.png", float RADIUS = 20);
+		~Outlaw() {}
 		void update(float dt) override;
 
 		void die() override;

@@ -5,6 +5,7 @@ namespace Sedna {
 		:GameObject("Table.png",scene,LOCATION,RADIUS)
 	{
 		id = "Table";
+		hp = 5;
 	}
 	void Table::update(float dt)
 	{

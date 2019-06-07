@@ -9,8 +9,8 @@ bool MainScene::init()
 	}
 
 	playerOne = new Sedna::Player(p1Controller, "player1.png", this);
-	GameObjects.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200)));
-	GameObjects.push_back(new Sedna::Outlaw(this, cocos2d::Vec2(300, 200)));
+	tables.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200)));
+	outlaws.push_back(new Sedna::Outlaw(this, cocos2d::Vec2(300, 200)));
 
 	this->scheduleUpdate();
 
@@ -26,10 +26,7 @@ void MainScene::update(float dt)
 	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) {
 		///BUG IS HERE
 		if (GameObjects[i]->hp <= 0) {
-			GameObjects[i]->hitbox->getDrawNode()->removeFromParent();
-			GameObjects[i]->sprite->removeFromParent();
 			GameObjects[i]->die();
-
 
 			GameObjects.erase(GameObjects.begin() + i);
 			i--;

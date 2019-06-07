@@ -27,6 +27,8 @@ namespace Sedna {
 			eProjectiles.erase(eProjectiles.begin() + i);
 			i--;
 		}
+		hitbox->getDrawNode()->removeFromParent();
+		sprite->removeFromParent();
 	}
 	void Outlaw::shoot(float dt)
 	{
