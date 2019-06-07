@@ -9,8 +9,8 @@ bool MainScene::init()
 	}
 
 	playerOne = new Sedna::Player(p1Controller, "player1.png", this);
-	tables.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200)));
-	outlaws.push_back(new Sedna::Outlaw(this, cocos2d::Vec2(300, 200)));
+	GameObjects.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200)));
+	GameObjects.push_back(new Sedna::Outlaw(this, cocos2d::Vec2(300, 200)));
 
 	this->scheduleUpdate();
 

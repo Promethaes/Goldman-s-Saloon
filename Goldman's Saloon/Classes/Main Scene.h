@@ -12,6 +12,8 @@ public:
 	CREATE_FUNC(MainScene);
 	
 	Sedna::Player* playerOne;
+
+	//dunno if we should actually use these
 	std::vector<Sedna::Table*> tables;
 	std::vector<Sedna::Outlaw*> outlaws;
 };
