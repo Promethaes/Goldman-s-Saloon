@@ -19,7 +19,7 @@ namespace Sedna {
 
 		//optional id. Thinking about using this for collision checks.
 		std::string id = "";
-		unsigned hp;
+		int hp;
 		std::vector<Projectile*> projectiles;
 
 	protected:
