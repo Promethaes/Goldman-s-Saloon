@@ -37,7 +37,7 @@ namespace Sedna {
 	}
 	void Player::checkList()
 	{
-		if (projectiles.size() > 4) {
+		if (projectiles.size() > currentGun->getProjLimit()) {
 
 			projectiles.front()->hitbox->getDrawNode()->removeFromParent();
 			projectiles.front()->sprite->removeFromParent();
