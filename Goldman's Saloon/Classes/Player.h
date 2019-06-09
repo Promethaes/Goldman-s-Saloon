@@ -14,6 +14,7 @@ namespace Sedna {
 		void shoot(float dt);
 		void checkList();
 		void checkInput();
+		void checkProjectileCollision();
 
 		float gunTimer = 0.0f;
 		bool hasShot = false;

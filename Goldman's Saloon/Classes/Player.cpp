@@ -20,23 +20,7 @@ namespace Sedna {
 		checkInput();
 		shoot(dt);
 		checkList();
-
-		for (int i = 0; i < GameObject::gameObjects.size(); i++) {
-			for (int j = 0; j < projectiles.size(); j++) {
-				if (GameObject::gameObjects[i]->id != "Player" && GameObject::gameObjects[i]->id != "Table"&&
-					projectiles[j]->hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox)) {
-
-					GameObject::gameObjects[i]->hp-= currentGun->getDamage();/*change this to gun's dmaage when you can*/
-
-					projectiles[j]->hitbox->getDrawNode()->removeFromParent();
-					projectiles[j]->sprite->removeFromParent();
-					projectiles.erase(projectiles.begin() + j);
-					j--;
-
-				}
-					
-			}
-		}
+		checkProjectileCollision();
 
 		for (auto x : projectiles)
 			x->update(dt);
@@ -47,7 +31,7 @@ namespace Sedna {
 	{
 		pController->getTriggers(pTriggers);
 
-		
+
 		if (pTriggers.RT > 0.0f)
 			currentGun->shoot(dt, this);
 	}
@@ -76,5 +60,24 @@ namespace Sedna {
 				force.y * 300 : 0.0f));
 		}
 
+	}
+	void Player::checkProjectileCollision()
+	{
+		for (int i = 0; i < GameObject::gameObjects.size(); i++) {
+			for (int j = 0; j < projectiles.size(); j++) {
+				if (GameObject::gameObjects[i]->id != "Player" && GameObject::gameObjects[i]->id != "Table"&&
+					projectiles[j]->hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox)) {
+
+					GameObject::gameObjects[i]->hp -= currentGun->getDamage();/*change this to gun's dmaage when you can*/
+
+					projectiles[j]->hitbox->getDrawNode()->removeFromParent();
+					projectiles[j]->sprite->removeFromParent();
+					projectiles.erase(projectiles.begin() + j);
+					j--;
+
+				}
+
+			}
+		}
 	}
 }
