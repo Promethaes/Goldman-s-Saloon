@@ -13,7 +13,7 @@ namespace Sedna {
 	{
 		shoot(dt);
 		checkList();
-		for (auto x : eProjectiles)
+		for (auto x : projectiles)
 			x->update(dt);
 				
 		updateGO(dt);
@@ -21,10 +21,10 @@ namespace Sedna {
 	void Outlaw::die()
 	{
 		///<doesn't work right now>
-		for (int i = 0; i < eProjectiles.size(); i++) {
-			eProjectiles[i]->hitbox->getDrawNode()->removeFromParent();
-			eProjectiles[i]->sprite->removeFromParent();
-			eProjectiles.erase(eProjectiles.begin() + i);
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
+			projectiles[i]->sprite->removeFromParent();
+			projectiles.erase(projectiles.begin() + i);
 			i--;
 		}
 		hitbox->getDrawNode()->removeFromParent();
@@ -38,10 +38,10 @@ namespace Sedna {
 		}
 		if (gunTimer == 0) {
 			hasShot = true;
-			eProjectiles.push_back(new Projectile(/*change this string later*/"Bullet2.png", scene, hitbox->getLocation(), 5));
-			eProjectiles.back()->update(dt);
+			projectiles.push_back(new Projectile(/*change this string later*/"Bullet2.png", scene, hitbox->getLocation(), 5));
+			projectiles.back()->update(dt);
 
-			eProjectiles.back()->hitbox->setForce(cocos2d::Vec2(0, -500));
+			projectiles.back()->hitbox->setForce(cocos2d::Vec2(0, -500));
 
 		}
 		if (hasShot)
@@ -49,11 +49,11 @@ namespace Sedna {
 	}
 	void Outlaw::checkList()
 	{
-		if (eProjectiles.size() > 4) {
+		if (projectiles.size() > 4) {
 			
-			eProjectiles.front()->hitbox->getDrawNode()->removeFromParent();
-			eProjectiles.front()->sprite->removeFromParent();
-			eProjectiles.erase(eProjectiles.begin());
+			projectiles.front()->hitbox->getDrawNode()->removeFromParent();
+			projectiles.front()->sprite->removeFromParent();
+			projectiles.erase(projectiles.begin());
 		}
 	}
 }

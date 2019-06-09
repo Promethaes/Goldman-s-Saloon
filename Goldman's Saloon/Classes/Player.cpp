@@ -1,7 +1,9 @@
-#include "Player.h"
+#include "Guns.h"
 #include "Primitive.h"
+#include "Projectile.h"
 #include <iostream>
 #define DEADZONE 0.2f
+
 namespace Sedna {
 	Player::Player(XinputController* CONTROLLER, const char * path, cocos2d::Scene* scene, const cocos2d::Vec2 & LOCATION, float RADIUS)
 		:GameObject(path, scene, LOCATION, RADIUS)
@@ -11,6 +13,7 @@ namespace Sedna {
 		hitbox->getDrawNode()->setZOrder(10);
 		sprite->setZOrder(11);
 		hp = 3;
+		currentGun = new olReliable();// for now
 	}
 	void Player::update(float dt)
 	{
@@ -19,15 +22,15 @@ namespace Sedna {
 		checkList();
 
 		for (int i = 0; i < GameObject::gameObjects.size(); i++) {
-			for (int j = 0; j < pProjectiles.size(); j++) {
+			for (int j = 0; j < projectiles.size(); j++) {
 				if (GameObject::gameObjects[i]->id != "Player" && GameObject::gameObjects[i]->id != "Table"&&
-					pProjectiles[j]->hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox)) {
+					projectiles[j]->hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox)) {
 
-					GameObject::gameObjects[i]->hp--;/*change this to gun's dmaage when you can*/
+					GameObject::gameObjects[i]->hp-= currentGun->getDamage();/*change this to gun's dmaage when you can*/
 
-					pProjectiles[j]->hitbox->getDrawNode()->removeFromParent();
-					pProjectiles[j]->sprite->removeFromParent();
-					pProjectiles.erase(pProjectiles.begin() + j);
+					projectiles[j]->hitbox->getDrawNode()->removeFromParent();
+					projectiles[j]->sprite->removeFromParent();
+					projectiles.erase(projectiles.begin() + j);
 					j--;
 
 				}
@@ -35,7 +38,7 @@ namespace Sedna {
 			}
 		}
 
-		for (auto x : pProjectiles)
+		for (auto x : projectiles)
 			x->update(dt);
 
 		updateGO(dt);
@@ -44,40 +47,17 @@ namespace Sedna {
 	{
 		pController->getTriggers(pTriggers);
 
-		if (pTriggers.RT > 0) {
-			if (gunTimer > 0.5f) {
-				gunTimer = 0;
-				hasShot = false;
-			}
-			if (gunTimer == 0) {
-				hasShot = true;
-				pProjectiles.push_back(new Projectile("Bullet2.png", scene, hitbox->getLocation(), 5));
-
-				///<LEAVE THIS. this is what sets the dt member variable. if you remove this, projectiles will not work properly!>
-				pProjectiles.back()->update(dt);
-
-				if (pSticks[1].x > DEADZONE || pSticks[1].x < -DEADZONE || pSticks[1].y > DEADZONE || pSticks[1].y < -DEADZONE) {
-					auto direction = cocos2d::Vec2(pSticks[1].x, pSticks[1].y);
-					auto force = direction / sqrt(direction.x*direction.x + direction.y*direction.y);//normalized vector
-
-					pProjectiles.back()->hitbox->setForce(cocos2d::Vec2(force.x * 500, force.y * 500));
-
-				}
-				else
-					pProjectiles.back()->hitbox->setForce(cocos2d::Vec2(0, 500));
-			}
-
-		}
-		if (hasShot)
-			gunTimer += dt;
+		
+		if (pTriggers.RT > 0.0f)
+			currentGun->shoot(dt, this);
 	}
 	void Player::checkList()
 	{
-		if (pProjectiles.size() > 4) {
+		if (projectiles.size() > 4) {
 
-			pProjectiles.front()->hitbox->getDrawNode()->removeFromParent();
-			pProjectiles.front()->sprite->removeFromParent();
-			pProjectiles.erase(pProjectiles.begin());
+			projectiles.front()->hitbox->getDrawNode()->removeFromParent();
+			projectiles.front()->sprite->removeFromParent();
+			projectiles.erase(projectiles.begin());
 		}
 
 	}

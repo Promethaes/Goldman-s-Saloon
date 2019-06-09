@@ -1,5 +1,5 @@
-#include "GameObject.h"
 #include "Primitive.h"
+#include "Projectile.h"
 #include <stdio.h>
 namespace Sedna {
 	std::vector<GameObject*> GameObject::gameObjects = {};
@@ -13,6 +13,7 @@ namespace Sedna {
 		if (pushback)
 			gameObjects.push_back(this);
 		this->scene = scene;
+		projectiles = {};
 	}
 
 	void GameObject::updateGO(float dt)

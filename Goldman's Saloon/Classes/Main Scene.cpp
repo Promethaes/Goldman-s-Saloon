@@ -24,7 +24,6 @@ void MainScene::update(float dt)
 	p1Controller->getTriggers(p1Triggers);
 
 	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) {
-		///BUG IS HERE
 		if (GameObjects[i]->hp <= 0) {
 			GameObjects[i]->die();
 

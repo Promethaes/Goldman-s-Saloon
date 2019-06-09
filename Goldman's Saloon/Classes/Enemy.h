@@ -16,6 +16,5 @@ namespace Sedna {
 
 		float gunTimer = 0.0f;
 		bool hasShot = false;
-		std::vector<Projectile*> eProjectiles;
 	};
 }

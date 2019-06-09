@@ -150,6 +150,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Enemy.cpp" />
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\GameObject.cpp" />
+    <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Guns.cpp" />
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Main Scene.cpp" />
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Player.cpp" />
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Primitive.cpp" />
@@ -163,6 +164,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Enemy.h" />
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\GameObject.h" />
+    <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Guns.h" />
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Main Scene.h" />
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Player.h" />
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Primitive.h" />
