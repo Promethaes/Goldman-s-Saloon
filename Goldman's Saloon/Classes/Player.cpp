@@ -1,7 +1,8 @@
 #include "Guns.h"
 #include "Primitive.h"
 #include "Projectile.h"
-#include <iostream>
+#include "Input.h"
+#include "Events.h"
 #define DEADZONE 0.2f
 
 namespace Sedna {
@@ -26,6 +27,18 @@ namespace Sedna {
 			x->update(dt);
 
 		updateGO(dt);
+	}
+	void Player::die()
+	{
+		//THIS LOGIC WILL CHANGE. this is just a placeholder for now.
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
+			projectiles[i]->sprite->removeFromParent();
+			projectiles.erase(projectiles.begin() + i);
+			i--;
+		}
+		hitbox->getDrawNode()->removeFromParent();
+		sprite->removeFromParent();
 	}
 	void Player::shoot(float dt)
 	{
@@ -59,6 +72,19 @@ namespace Sedna {
 				(pSticks[0].y > DEADZONE || pSticks[0].y < -DEADZONE) ?
 				force.y * 300 : 0.0f));
 		}
+
+		///<keyboard input,comment this out when you wanna actually test stuff.>
+		if (isEvent(Events::W))
+			hitbox->setForce(cocos2d::Vec2(0, 300.0f));
+		else if (isEvent(Events::S))
+			hitbox->setForce(cocos2d::Vec2(0, -300.0f));
+		else if (isEvent(Events::A))
+			hitbox->setForce(cocos2d::Vec2(-300.0f, 0));
+		else if (isEvent(Events::D))
+			hitbox->setForce(cocos2d::Vec2(300.0f, 0));
+		else
+			hitbox->addForce(hitbox->getVelocity().x *-10.0f, hitbox->getVelocity().y*-10.0f);
+
 
 	}
 	void Player::checkProjectileCollision()

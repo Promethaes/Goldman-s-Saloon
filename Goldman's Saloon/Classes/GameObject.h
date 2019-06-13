@@ -10,7 +10,7 @@ namespace Sedna {
 		void updateGO(float dt);
 		///<every single game object should have its own update that calls updateGO>
 		virtual void update(float dt) = 0;
-		virtual void die();
+		virtual void die() = 0;
 		cocos2d::Scene* getScene() const { return scene; }
 
 		static std::vector<GameObject*> gameObjects;

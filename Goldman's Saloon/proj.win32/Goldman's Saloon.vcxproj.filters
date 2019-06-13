@@ -48,6 +48,9 @@
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Guns.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Input.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -84,6 +87,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Guns.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Events.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Input.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

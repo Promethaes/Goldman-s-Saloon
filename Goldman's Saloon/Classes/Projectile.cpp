@@ -12,4 +12,8 @@ namespace Sedna {
 	{
 		updateGO(dt);
 	}
+	void Projectile::die()
+	{
+		//do nothing, because projectile death is handled internally
+	}
 }

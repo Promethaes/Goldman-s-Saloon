@@ -11,6 +11,7 @@ bool MainScene::init()
 	playerOne = new Sedna::Player(p1Controller, "player1.png", this);
 	tables.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200)));
 	outlaws.push_back(new Sedna::Outlaw(this, cocos2d::Vec2(300, 200)));
+	outlaws.push_back(new Sedna::ShotgunOutlaw(this, cocos2d::Vec2(300, 100)));
 
 	this->scheduleUpdate();
 
@@ -23,6 +24,7 @@ void MainScene::update(float dt)
 	p1Controller->updateSticks(p1Sticks);
 	p1Controller->getTriggers(p1Triggers);
 
+	//kill stuff when it should die
 	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) {
 		if (GameObjects[i]->hp <= 0) {
 			GameObjects[i]->die();
@@ -31,6 +33,8 @@ void MainScene::update(float dt)
 			i--;
 		}
 	}
+
+	//collision and updating
 	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) {
 
 		for (int j = 0; j < Sedna::GameObject::gameObjects.size(); j++) {

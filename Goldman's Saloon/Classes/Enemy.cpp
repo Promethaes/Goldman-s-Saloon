@@ -3,24 +3,25 @@
 #include "Primitive.h"
 namespace Sedna {
 
-	Outlaw::Outlaw(cocos2d::Scene * scene, const cocos2d::Vec2 & LOCATION, const char * path, float RADIUS)
-		:GameObject(path,scene,LOCATION,RADIUS)
+	Outlaw::Outlaw(cocos2d::Scene * scene, const cocos2d::Vec2 & LOCATION, const char * path, float RADIUS, Gun* CURRENTGUN)
+		:GameObject(path, scene, LOCATION, RADIUS)
 	{
 		hp = 3;//subject to change of course
 		id = "Outlaw";
+		currentGun = CURRENTGUN;
+
 	}
 	void Outlaw::update(float dt)
 	{
-		shoot(dt);
+		currentGun->shoot(dt, this, false);
 		checkList();
 		for (auto x : projectiles)
 			x->update(dt);
-				
+
 		updateGO(dt);
 	}
 	void Outlaw::die()
 	{
-		///<doesn't work right now>
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
 			projectiles[i]->sprite->removeFromParent();
@@ -30,30 +31,48 @@ namespace Sedna {
 		hitbox->getDrawNode()->removeFromParent();
 		sprite->removeFromParent();
 	}
-	void Outlaw::shoot(float dt)
+	void Outlaw::checkProjectileCollision()
 	{
-		if (gunTimer > 0.5f) {
-			gunTimer = 0;
-			hasShot = false;
-		}
-		if (gunTimer == 0) {
-			hasShot = true;
-			projectiles.push_back(new Projectile(/*change this string later*/"Bullet2.png", scene, hitbox->getLocation(), 5));
-			projectiles.back()->update(dt);
+		for (int i = 0; i < GameObject::gameObjects.size(); i++) {
+			for (int j = 0; j < projectiles.size(); j++) {
+				if (GameObject::gameObjects[i]->id != "Outlaw" &&
+					projectiles[j]->hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox)) {
 
-			projectiles.back()->hitbox->setForce(cocos2d::Vec2(0, -500));
+					GameObject::gameObjects[i]->hp -= currentGun->getDamage();/*change this to gun's dmaage when you can*/
 
+					projectiles[j]->hitbox->getDrawNode()->removeFromParent();
+					projectiles[j]->sprite->removeFromParent();
+					projectiles.erase(projectiles.begin() + j);
+					j--;
+
+				}
+
+			}
 		}
-		if (hasShot)
-			gunTimer += dt;
 	}
 	void Outlaw::checkList()
 	{
-		if (projectiles.size() > 4) {
-			
+		while (projectiles.size() > currentGun->getProjLimit()) {
+
 			projectiles.front()->hitbox->getDrawNode()->removeFromParent();
 			projectiles.front()->sprite->removeFromParent();
 			projectiles.erase(projectiles.begin());
 		}
+	}
+	ShotgunOutlaw::ShotgunOutlaw(cocos2d::Scene * scene, const cocos2d::Vec2 & LOCATION, const char * path)
+		:Outlaw(scene, LOCATION, path)
+	{
+		currentGun = new bloodyMary();
+	}
+	void ShotgunOutlaw::die()
+	{
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
+			projectiles[i]->sprite->removeFromParent();
+			projectiles.erase(projectiles.begin() + i);
+			i--;
+		}
+		hitbox->getDrawNode()->removeFromParent();
+		sprite->removeFromParent();
 	}
 }

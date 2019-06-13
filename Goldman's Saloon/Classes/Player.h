@@ -10,6 +10,7 @@ namespace Sedna {
 		void update(float dt) override;
 		Stick pSticks[2];
 		void setGun(Gun* gun) { currentGun = gun; }
+		void die() override;
 	private:
 		void shoot(float dt);
 		void checkList();

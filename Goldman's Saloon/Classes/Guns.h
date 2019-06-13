@@ -21,11 +21,19 @@ namespace Sedna {
 
 	//make new guns here
 
+	//base gun
 	class olReliable : public Gun {
 	public:
 		olReliable();
 		void shoot(float dt, Sedna::GameObject* p, bool isPlayer = true) override;
 
+	};
+
+	//shotgun
+	class bloodyMary : public Gun {
+	public:
+		bloodyMary();
+		void shoot(float dt, Sedna::GameObject*p, bool isPlayer = true) override;
 	};
 
 
