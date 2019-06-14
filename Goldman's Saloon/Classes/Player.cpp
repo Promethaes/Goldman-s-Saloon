@@ -74,16 +74,16 @@ namespace Sedna {
 		}
 
 		///<keyboard input,comment this out when you wanna actually test stuff.>
-		if (isEvent(Events::W))
-			hitbox->setForce(cocos2d::Vec2(0, 300.0f));
-		else if (isEvent(Events::S))
-			hitbox->setForce(cocos2d::Vec2(0, -300.0f));
-		else if (isEvent(Events::A))
-			hitbox->setForce(cocos2d::Vec2(-300.0f, 0));
-		else if (isEvent(Events::D))
-			hitbox->setForce(cocos2d::Vec2(300.0f, 0));
-		else
-			hitbox->addForce(hitbox->getVelocity().x *-10.0f, hitbox->getVelocity().y*-10.0f);
+		//if (isEvent(Events::W))
+		//	hitbox->setForce(cocos2d::Vec2(0, 300.0f));
+		//else if (isEvent(Events::S))
+		//	hitbox->setForce(cocos2d::Vec2(0, -300.0f));
+		//else if (isEvent(Events::A))
+		//	hitbox->setForce(cocos2d::Vec2(-300.0f, 0));
+		//else if (isEvent(Events::D))
+		//	hitbox->setForce(cocos2d::Vec2(300.0f, 0));
+		//else
+		//	hitbox->addForce(hitbox->getVelocity().x *-10.0f, hitbox->getVelocity().y*-10.0f);
 
 
 	}

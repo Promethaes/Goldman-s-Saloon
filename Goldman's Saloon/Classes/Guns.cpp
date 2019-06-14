@@ -12,21 +12,29 @@ namespace Sedna {
 
 
 	//base gun
+	//so basically, these small data types are almost like objects, but since all guns have different ways of shooting, making them into data types was the best decision
+	//not to mention that we don't have to specify the logic in more than one place
 	Sedna::olReliable::olReliable()
 		: Gun(2, 4, 0.5f, INT_MAX)
 	{
 	}
+	//shoot is a pure virtual function, which means that all child classes of gun must create their own definition for it.
+	//this is the least complicated one.
+	//notice how it takes in a game object pointer. this allows us to give the same guns to enemies and players
 	void Sedna::olReliable::shoot(float dt, Sedna::GameObject* p, bool isPlayer)
 	{
+		//evyn's patented timer code
 		if (gunTimer > gunTimerMax) {
 			gunTimer = 0;
 			hasShot = false;
 		}
 		if (gunTimer == 0) {
 			hasShot = true;
+			//make a new projectile
 			p->projectiles.push_back(new Sedna::Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
 
 			///<LEAVE THIS. this is what sets the dt member variable. if you remove this, projectiles will not work properly!>
+			//right now, this function updates the value of dt. later in the code, it will *actually* update everything
 			p->projectiles.back()->update(dt);
 
 			if (isPlayer) {
@@ -50,7 +58,7 @@ namespace Sedna {
 				damage = 1;
 				p->projectiles.back()->hitbox->setForce(cocos2d::Vec2(0, -471));
 			}
-
+			//now that a force is set, the next time we update the projectile will move.
 
 		}
 		if (hasShot)
@@ -68,73 +76,86 @@ namespace Sedna {
 
 	void bloodyMary::shoot(float dt, Sedna::GameObject * p, bool isPlayer)
 	{
-		for (int i = 0; i < 5; i++) 
-			p->projectiles.push_back(new Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
-
-		for (auto x : p->projectiles)
-			x->update(dt);
-
-		if (isPlayer) {
-			if (static_cast<Player*>(p)->pSticks[1].x < -DEADZONE) {
-				p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(-5.06, 0));//projectile on the left
-				p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(-4.5, 1.75));
-				p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(-3.35, 3.35));//projectiles in the middle
-				p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(-1.75, 4.5));
-				p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(0, 5.06));//projectile on the right
-
-			}
-
-			else if (static_cast<Player*>(p)->pSticks[1].x > DEADZONE) {
-				p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(0, 5.06));//projectile on the left
-				p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(1.75, 4.5));
-				p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(3.35, 3.35));//projectiles in the middle
-				p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(4.5, 1.75));
-				p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(5.06, 0));//projectile on the right
-			}
-
-			//if the stick is up or in all deadzones
-			else if (static_cast<Player*>(p)->pSticks[1].x < DEADZONE && static_cast<Player*>(p)->pSticks[1].x > -DEADZONE && static_cast<Player*>(p)->pSticks[1].y > DEADZONE ||
-				static_cast<Player*>(p)->pSticks[1].x < DEADZONE && static_cast<Player*>(p)->pSticks[1].x > -DEADZONE && static_cast<Player*>(p)->pSticks[1].y < DEADZONE && static_cast<Player*>(p)->pSticks[1].y > -DEADZONE) {
-
-				p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(-3.25, 3.25));//projectile on the left
-				p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(-1.75, 4.5));
-				p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(0, 5.06));//projectiles in the middle
-				p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(1.75, 4.5));
-				p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(3.25, 3.25));//projectile on the right
-			}
-		}
-		else {
-			damage = 1;
-			//might have to handle this internally
-			//for (int i = 0; i < GameObject::gameObjects.size(); i++) {
-			//	if (GameObject::gameObjects[i]->id == "Player") {
-			//
-			//		if (GameObject::gameObjects[i]->hitbox->getLocation().x - p->hitbox->getLocation().x < 0) {
-			//			//static_cast<ShotgunOutlaw*>(p)->onLeft = true;
-			//			p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(-5.06, 0));//projectile on the left
-			//			p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(-4.5, -1.75));
-			//			p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(-3.35, -3.35));//projectiles in the middle
-			//			p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(-1.75, -4.5));
-			//			p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(0, -5.06));//projectile on the right
-			//		}
-			//		else {
-			//			p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(0, -5.06));//projectile on the left
-			//			p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(1.75, -4.5));
-			//			p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(3.35, -3.35));//projectiles in the middle
-			//			p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(4.5, -1.75));
-			//			p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(5.06, 0));//projectile on the right
-			//		}
-			//		//static_cast<ShotgunOutlaw*>(p)->onLeft = false;
-			//
-			//	}
-			//}
-			p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(-5.06, 0));//projectile on the left
-			p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(-4.5, -1.75));
-			p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(-3.35, -3.35));//projectiles in the middle
-			p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(-1.75, -4.5));
-			p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(0, -5.06));//projectile on the right
-
+		if (gunTimer > gunTimerMax) {
+			gunTimer = 0;
+			hasShot = false;
 		}
 
+		if (gunTimer == 0) {
+			hasShot = true;
+			for (int i = 0; i < 5; i++) {
+				p->projectiles.push_back(new Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
+				p->projectiles.back()->update(dt);
+			}
+
+			for (auto x : p->projectiles)
+				x->update(dt);
+
+			//a bit of important redundant code
+			while (p->projectiles.size() > projLimit) {
+
+				p->projectiles.front()->hitbox->getDrawNode()->removeFromParent();
+				p->projectiles.front()->sprite->removeFromParent();
+				p->projectiles.erase(p->projectiles.begin());
+			}
+
+			if (isPlayer) {
+				if (static_cast<Player*>(p)->pSticks[1].x < -DEADZONE) {
+					p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(-5.06, 0));//projectile on the left
+					p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(-4.5, 1.75));
+					p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(-3.35, 3.35));//projectiles in the middle
+					p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(-1.75, 4.5));
+					p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(0, 5.06));//projectile on the right
+
+				}
+
+				else if (static_cast<Player*>(p)->pSticks[1].x > DEADZONE) {
+					p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(0, 5.06));//projectile on the left
+					p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(1.75, 4.5));
+					p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(3.35, 3.35));//projectiles in the middle
+					p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(4.5, 1.75));
+					p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(5.06, 0));//projectile on the right
+				}
+
+				//if the stick is up or in all deadzones
+				else if (static_cast<Player*>(p)->pSticks[1].x < DEADZONE && static_cast<Player*>(p)->pSticks[1].x > -DEADZONE && static_cast<Player*>(p)->pSticks[1].y > DEADZONE ||
+					static_cast<Player*>(p)->pSticks[1].x < DEADZONE && static_cast<Player*>(p)->pSticks[1].x > -DEADZONE && static_cast<Player*>(p)->pSticks[1].y < DEADZONE && static_cast<Player*>(p)->pSticks[1].y > -DEADZONE) {
+
+					p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(-3.25, 3.25));//projectile on the left
+					p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(-1.75, 4.5));
+					p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(0, 5.06));//projectiles in the middle
+					p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(1.75, 4.5));
+					p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(3.25, 3.25));//projectile on the right
+				}
+			}
+			else {
+				damage = 1;
+				//might have to handle this internally
+				for (int i = 0; i < GameObject::gameObjects.size(); i++) {
+					if (GameObject::gameObjects[i]->id == "Player") {
+
+						if (GameObject::gameObjects[i]->hitbox->getLocation().x - p->hitbox->getLocation().x < 0) {
+							p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(-5.06, 0) * 100);//projectile on the left
+							p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(-4.5, -1.75) * 100);
+							p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(-3.35, -3.35) * 100);//projectiles in the middle
+							p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(-1.75, -4.5) * 100);
+							p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(0, -5.06) * 100);//projectile on the right
+						}
+						else {
+							p->projectiles[0]->hitbox->setForce(cocos2d::Vec2(0, -5.06) * 100);//projectile on the left
+							p->projectiles[1]->hitbox->setForce(cocos2d::Vec2(1.75, -4.5) * 100);
+							p->projectiles[2]->hitbox->setForce(cocos2d::Vec2(3.35, -3.35) * 100);//projectiles in the middle
+							p->projectiles[3]->hitbox->setForce(cocos2d::Vec2(4.5, -1.75) * 100);
+							p->projectiles[4]->hitbox->setForce(cocos2d::Vec2(5.06, 0) * 100);//projectile on the right
+						}
+
+					}
+				}
+				
+
+			}
+		}
+		if (hasShot)
+			gunTimer += dt;
 	}
 }
