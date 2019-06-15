@@ -10,10 +10,9 @@ namespace Sedna {
 
 
 		void die() override;
-	private:
-		void checkProjectileCollision();
-		void checkList();
 	protected:
+		void checkList();
+		void checkProjectileCollision();
 		Gun* currentGun;
 
 	};
@@ -33,5 +32,17 @@ namespace Sedna {
 		Rifleman(cocos2d::Scene* scene, const cocos2d::Vec2& LOCATION, const char* path = "rifleLl.png");
 
 		void die() override;
+	};
+
+	class CrazyPete :public Outlaw {
+	public:
+		CrazyPete(cocos2d::Scene* scene, const cocos2d::Vec2& LOCATION, const char* path = "CrazyPete.png");
+		void update(float dt) override;
+
+		void die() override;
+
+		Projectile* dynStick;
+	private:
+		void checkDynamite(float dt);
 	};
 }

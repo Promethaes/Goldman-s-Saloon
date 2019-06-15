@@ -70,7 +70,7 @@ namespace Sedna {
 
 	//shotgun
 	Sedna::bloodyMary::bloodyMary()
-		:Gun(3, 5, 0.9f, 10)
+		:Gun(3, 5, 0.9f, 5)
 	{
 	}
 
@@ -179,6 +179,7 @@ namespace Sedna {
 
 			}
 			else {
+				damage = 1;
 				for (int i = 0; i < GameObject::gameObjects.size(); i++) {
 					if (GameObject::gameObjects[i]->id == "Player") {
 						auto direction = GameObject::gameObjects[i]->hitbox->getLocation() - p->hitbox->getLocation();
@@ -189,6 +190,40 @@ namespace Sedna {
 					}
 				}
 			}
+		}
+		if (hasShot)
+			gunTimer += dt;
+	}
+	dynamite::dynamite()
+		:Gun(/*3 for now*/3, 8, 1.5f,/*5 for now*/5)
+	{
+	}
+	void dynamite::shoot(float dt, Sedna::GameObject * p, bool isPlayer)
+	{
+		if (gunTimer > gunTimerMax) {
+			gunTimer = 0;
+			hasShot = false;
+		}
+		if (gunTimer == 0) {
+			hasShot = true;
+
+			//for (int i = 0; i < 8; i++) {
+			//	p->projectiles.push_back(new Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
+			//	p->projectiles.back()->update(dt);
+			//}
+
+			if (isPlayer) {
+
+			}
+			else {
+				//only let crazy pete use this...for now
+
+				static_cast<CrazyPete*>(p)->dynStick->updateGO(dt);
+				static_cast<CrazyPete*>(p)->dynStick->hitbox->setForce(cocos2d::Vec2(0,-471));
+				static_cast<CrazyPete*>(p)->dynStick->sprite->setVisible(true);
+
+			}
+
 		}
 		if (hasShot)
 			gunTimer += dt;

@@ -42,5 +42,14 @@ namespace Sedna {
 		void shoot(float dt, Sedna::GameObject*p, bool isPlayer = true) override;
 	};
 
+	//crazy pete's "gun"
+	class dynamite : public Gun {
+	public:
+		dynamite();
+		void shoot(float dt, Sedna::GameObject*p, bool isPlayer = true) override;
+
+
+	private:
+	};
 
 }

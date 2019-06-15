@@ -16,4 +16,6 @@ public:
 	//dunno if we should actually use these
 	std::vector<Sedna::Table*> tables;
 	std::vector<Sedna::Outlaw*> outlaws;
+
+	cocos2d::Sprite* bg1;
 };

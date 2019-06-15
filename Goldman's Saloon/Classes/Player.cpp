@@ -13,7 +13,7 @@ namespace Sedna {
 		id = "Player";
 		hitbox->getDrawNode()->setZOrder(10);
 		sprite->setZOrder(11);
-		hp = 3;
+		hp = INT_MAX;
 		currentGun = new olReliable();// for now
 	}
 	void Player::update(float dt)

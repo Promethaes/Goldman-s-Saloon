@@ -15,6 +15,7 @@ namespace Sedna {
 	{
 		currentGun->shoot(dt, this, false);
 		checkList();
+		checkProjectileCollision();
 		for (auto x : projectiles)
 			x->update(dt);
 
@@ -50,6 +51,8 @@ namespace Sedna {
 			}
 		}
 	}
+
+
 	void Outlaw::checkList()
 	{
 		while (projectiles.size() > currentGun->getProjLimit()) {
@@ -92,5 +95,69 @@ namespace Sedna {
 		}
 		hitbox->getDrawNode()->removeFromParent();
 		sprite->removeFromParent();
+	}
+	CrazyPete::CrazyPete(cocos2d::Scene * scene, const cocos2d::Vec2 & LOCATION, const char * path)
+		:Outlaw(scene,LOCATION,path)
+	{
+		currentGun = new dynamite();
+
+		dynStick = new Projectile("a.png", scene, LOCATION, 8);
+
+	}
+	void CrazyPete::update(float dt)
+	{
+		currentGun->shoot(dt, this, false);
+		checkDynamite(dt);
+		checkProjectileCollision();
+		for (auto x : projectiles)
+			x->update(dt);
+
+		updateGO(dt);
+	}
+	void CrazyPete::die()
+	{
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
+			projectiles[i]->sprite->removeFromParent();
+			projectiles.erase(projectiles.begin() + i);
+			i--;
+		}
+		hitbox->getDrawNode()->removeFromParent();
+		sprite->removeFromParent();
+		dynStick->hitbox->getDrawNode()->removeFromParent();
+		dynStick->sprite->removeFromParent();
+	}
+	void CrazyPete::checkDynamite(float dt)
+	{
+
+		dynStick->sprite->setRotation(dynStick->sprite->getRotation() + 25.0f);
+		dynStick->update(dt);
+		if (this->hitbox->getLocation().y - dynStick->hitbox->getLocation().y > 200) {
+
+			for (int i = 0; i < 8; i++) {
+				projectiles.push_back(new Projectile("Bullet2.png", getScene(), dynStick->hitbox->getLocation(), 5));
+				projectiles.back()->update(dt);
+			}
+			checkList();
+
+
+			auto speed = 500;
+
+			//set the force of all new bullets
+
+			projectiles[0]->hitbox->setForce(cocos2d::Vec2(-1, 0)*speed);
+			projectiles[1]->hitbox->setForce(cocos2d::Vec2(1, 0) *speed);
+			projectiles[2]->hitbox->setForce(cocos2d::Vec2(0, 1) *speed);
+			projectiles[3]->hitbox->setForce(cocos2d::Vec2(0, -1)*speed);
+			projectiles[4]->hitbox->setForce(cocos2d::Vec2(-0.5f, -0.5f)*speed);
+			projectiles[5]->hitbox->setForce(cocos2d::Vec2(-0.5f, 0.5f) *speed);
+			projectiles[6]->hitbox->setForce(cocos2d::Vec2(0.5f, -0.5f) *speed);
+			projectiles[7]->hitbox->setForce(cocos2d::Vec2(0.5f, 0.5f)  *speed);
+
+
+			dynStick->hitbox->setLocation(hitbox->getLocation());
+			dynStick->hitbox->setForce(cocos2d::Vec2(0, 0));
+			dynStick->sprite->setVisible(false);
+		}
 	}
 }

@@ -1,6 +1,7 @@
 #include "Main Scene.h"
 #include "Primitive.h"
 #define GameObjects Sedna::GameObject::gameObjects
+#define CAMERASPEED 1.0f
 bool MainScene::init()
 {
 	if (!HelloWorld::init())
@@ -13,6 +14,12 @@ bool MainScene::init()
 	outlaws.push_back(new Sedna::Outlaw(this, cocos2d::Vec2(300, 200)));
 	outlaws.push_back(new Sedna::ShotgunOutlaw(this, cocos2d::Vec2(300, 100)));
 	outlaws.push_back(new Sedna::Rifleman(this, cocos2d::Vec2(200, 100)));
+	outlaws.push_back(new Sedna::CrazyPete(this, cocos2d::Vec2(100, 250)));
+
+	bg1 = cocos2d::Sprite::create("bg1.png");
+	bg1->setAnchorPoint(cocos2d::Vec2(0.0f, 0.0f));
+
+	this->addChild(bg1, -1000);
 
 	this->scheduleUpdate();
 
@@ -24,6 +31,9 @@ void MainScene::update(float dt)
 	manager.update();
 	p1Controller->updateSticks(p1Sticks);
 	p1Controller->getTriggers(p1Triggers);
+
+	//this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
+	
 
 	//kill stuff when it should die
 	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) {
