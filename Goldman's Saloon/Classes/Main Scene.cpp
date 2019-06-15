@@ -12,6 +12,7 @@ bool MainScene::init()
 	tables.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200)));
 	outlaws.push_back(new Sedna::Outlaw(this, cocos2d::Vec2(300, 200)));
 	outlaws.push_back(new Sedna::ShotgunOutlaw(this, cocos2d::Vec2(300, 100)));
+	outlaws.push_back(new Sedna::Rifleman(this, cocos2d::Vec2(200, 100)));
 
 	this->scheduleUpdate();
 

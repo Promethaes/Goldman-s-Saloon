@@ -27,4 +27,11 @@ namespace Sedna {
 		
 		
 	};
+
+	class Rifleman : public Outlaw {
+	public:
+		Rifleman(cocos2d::Scene* scene, const cocos2d::Vec2& LOCATION, const char* path = "rifleLl.png");
+
+		void die() override;
+	};
 }

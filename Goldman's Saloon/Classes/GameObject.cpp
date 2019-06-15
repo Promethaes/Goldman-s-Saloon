@@ -14,6 +14,7 @@ namespace Sedna {
 			gameObjects.push_back(this);
 		this->scene = scene;
 		projectiles = {};
+		hitbox->getDrawNode()->setVisible(false);
 	}
 
 	void GameObject::updateGO(float dt)

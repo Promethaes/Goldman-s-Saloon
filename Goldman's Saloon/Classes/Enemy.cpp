@@ -75,4 +75,22 @@ namespace Sedna {
 		hitbox->getDrawNode()->removeFromParent();
 		sprite->removeFromParent();
 	}
+
+	Rifleman::Rifleman(cocos2d::Scene* scene, const cocos2d::Vec2& LOCATION, const char* path)
+		:Outlaw(scene,LOCATION,path)
+	{
+		currentGun = new rifle();
+	}
+
+	void Rifleman::die()
+	{
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
+			projectiles[i]->sprite->removeFromParent();
+			projectiles.erase(projectiles.begin() + i);
+			i--;
+		}
+		hitbox->getDrawNode()->removeFromParent();
+		sprite->removeFromParent();
+	}
 }

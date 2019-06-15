@@ -151,8 +151,43 @@ namespace Sedna {
 
 					}
 				}
-				
 
+
+			}
+		}
+		if (hasShot)
+			gunTimer += dt;
+	}
+	rifle::rifle()
+		//maybe we could do some logic that allows the player to shoot through multiple enemies with the rifle?
+		:Gun(/*how much damage should this do?*/3, 1, 1.0f, 5)
+	{
+	}
+	void rifle::shoot(float dt, Sedna::GameObject * p, bool isPlayer)
+	{
+		if (gunTimer > gunTimerMax) {
+			gunTimer = 0;
+			hasShot = false;
+		}
+		if (gunTimer == 0) {
+			hasShot = true;
+			p->projectiles.push_back(new Sedna::Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
+
+			p->projectiles.back()->update(dt);
+
+			if (isPlayer) {
+
+			}
+			else {
+				for (int i = 0; i < GameObject::gameObjects.size(); i++) {
+					if (GameObject::gameObjects[i]->id == "Player") {
+						auto direction = GameObject::gameObjects[i]->hitbox->getLocation() - p->hitbox->getLocation();
+						auto norm = direction / sqrt(direction.x*direction.x + direction.y*direction.y);
+
+						p->projectiles.back()->hitbox->setForce(norm * 700);
+
+					}
+				}
 			}
 		}
 		if (hasShot)
