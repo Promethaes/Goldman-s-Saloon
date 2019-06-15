@@ -1,5 +1,6 @@
 #include "Main Scene.h"
 #include "Primitive.h"
+//#include <iostream>
 #define GameObjects Sedna::GameObject::gameObjects
 #define CAMERASPEED 1.0f
 bool MainScene::init()
@@ -16,10 +17,14 @@ bool MainScene::init()
 	outlaws.push_back(new Sedna::Rifleman(this, cocos2d::Vec2(200, 100)));
 	outlaws.push_back(new Sedna::CrazyPete(this, cocos2d::Vec2(100, 250)));
 
-	bg1 = cocos2d::Sprite::create("bg1.png");
-	bg1->setAnchorPoint(cocos2d::Vec2(0.0f, 0.0f));
+	bg1 = new Background("bg1.png",this);
+	//bg1->setAnchorPoint(cocos2d::Vec2(0.0f, 0.0f));
+	//bg1->setScaleX(0.85f);
+	//bg1->setScaleY(0.92f);
+	//this->addChild(bg1, -1000);
 
-	this->addChild(bg1, -1000);
+	//std::cout << this->getDefaultCamera()->getPosition().y;
+	//this->getDefaultCamera()->setPosition(cocos2d::Vec2(this->getDefaultCamera()->getPosition().x, 0));
 
 	this->scheduleUpdate();
 
@@ -32,8 +37,20 @@ void MainScene::update(float dt)
 	p1Controller->updateSticks(p1Sticks);
 	p1Controller->getTriggers(p1Triggers);
 
-	//this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
-	
+
+	if (p1Controller->isButtonPressed(Sedna::DPAD_UP))
+		this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, 1.0f));
+	if (p1Controller->isButtonPressed(Sedna::DPAD_DOWN))
+		this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, -1.0f));
+	if (p1Controller->isButtonPressed(Sedna::DPAD_LEFT))
+		this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(-1.0f, 0));
+	if (p1Controller->isButtonPressed(Sedna::DPAD_RIGHT))
+		this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(1.0f, 0));
+
+	//for (auto x : GameObjects)
+	//	if (x->id == "Player")
+	//		this->getDefaultCamera()->setPosition(x->hitbox->getLocation());
+
 
 	//kill stuff when it should die
 	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++) {

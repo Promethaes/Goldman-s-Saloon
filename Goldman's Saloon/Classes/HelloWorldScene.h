@@ -45,4 +45,10 @@ public:
 	static Sedna::XinputController* p2Controller;
 };
 
+class Background  {
+public:
+	Background(const char* path,cocos2d::Scene* scene);
+private:
+	cocos2d::Sprite* sprite;
+};
 #endif // __HELLOWORLD_SCENE_H__

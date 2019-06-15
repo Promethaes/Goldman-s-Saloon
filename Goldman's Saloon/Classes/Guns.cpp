@@ -183,7 +183,16 @@ namespace Sedna {
 				for (int i = 0; i < GameObject::gameObjects.size(); i++) {
 					if (GameObject::gameObjects[i]->id == "Player") {
 						auto direction = GameObject::gameObjects[i]->hitbox->getLocation() - p->hitbox->getLocation();
+						if (direction.y > 0) {
+							p->projectiles.back()->hitbox->getDrawNode()->removeFromParent();
+							p->projectiles.back()->sprite->removeFromParent();
+							//has to be end - 1 because end points to the position of a theoretical element that isnt actually there.
+							p->projectiles.erase(p->projectiles.end() - 1);
+							continue;
+						}
+
 						auto norm = direction / sqrt(direction.x*direction.x + direction.y*direction.y);
+						
 
 						p->projectiles.back()->hitbox->setForce(norm * 700);
 

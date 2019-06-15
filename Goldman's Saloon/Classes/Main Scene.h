@@ -17,5 +17,5 @@ public:
 	std::vector<Sedna::Table*> tables;
 	std::vector<Sedna::Outlaw*> outlaws;
 
-	cocos2d::Sprite* bg1;
+	Background* bg1;
 };

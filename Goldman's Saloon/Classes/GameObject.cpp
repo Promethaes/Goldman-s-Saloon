@@ -5,8 +5,9 @@ namespace Sedna {
 	std::vector<GameObject*> GameObject::gameObjects = {};
 	GameObject::GameObject(const char * path, cocos2d::Scene* scene, const cocos2d::Vec2 & LOCATION, float RADIUS, bool pushback, float ANGLE, unsigned int SEGMENTS)
 	{
-		hitbox = new CirclePrimitive(LOCATION, RADIUS, ANGLE, SEGMENTS);
+		hitbox = new CirclePrimitive(LOCATION, RADIUS/1.1f, ANGLE, SEGMENTS);
 		sprite = cocos2d::Sprite::create(path);
+		sprite->setScale(0.7f);
 		scene->addChild(hitbox->getDrawNode(), 9);
 		scene->addChild(sprite, 10);
 		srand(time(0));
@@ -14,7 +15,7 @@ namespace Sedna {
 			gameObjects.push_back(this);
 		this->scene = scene;
 		projectiles = {};
-		hitbox->getDrawNode()->setVisible(false);
+		//hitbox->getDrawNode()->setVisible(false);
 	}
 
 	void GameObject::updateGO(float dt)
