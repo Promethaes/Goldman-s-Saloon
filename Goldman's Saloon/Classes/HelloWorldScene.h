@@ -45,10 +45,11 @@ public:
 	static Sedna::XinputController* p2Controller;
 };
 
+//so i dont have to define the same damn scaling every time
 class Background  {
 public:
 	Background(const char* path,cocos2d::Scene* scene);
-private:
 	cocos2d::Sprite* sprite;
 };
+
 #endif // __HELLOWORLD_SCENE_H__

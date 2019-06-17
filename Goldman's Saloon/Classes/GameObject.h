@@ -12,6 +12,8 @@ namespace Sedna {
 		virtual void update(float dt) = 0;
 		virtual void die() = 0;
 		cocos2d::Scene* getScene() const { return scene; }
+		void activateBulletTime();
+		
 
 		static std::vector<GameObject*> gameObjects;
 		CirclePrimitive* hitbox;

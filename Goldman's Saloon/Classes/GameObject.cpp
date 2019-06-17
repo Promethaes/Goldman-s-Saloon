@@ -15,7 +15,7 @@ namespace Sedna {
 			gameObjects.push_back(this);
 		this->scene = scene;
 		projectiles = {};
-		//hitbox->getDrawNode()->setVisible(false);
+		hitbox->getDrawNode()->setVisible(false);
 	}
 
 	void GameObject::updateGO(float dt)
@@ -26,4 +26,18 @@ namespace Sedna {
 	void GameObject::die()
 	{
 	}
+	void GameObject::activateBulletTime()
+	{
+		hitbox->dt /= 2;
+		hitbox->setForce(hitbox->getVelocity());
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles[i]->hitbox->dt /= 2;
+			projectiles[i]->hitbox->setForce(projectiles[i]->hitbox->getVelocity());
+		}
+	}
+	
+	
+	
+	
+	
 }

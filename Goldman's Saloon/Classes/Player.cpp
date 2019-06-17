@@ -13,11 +13,21 @@ namespace Sedna {
 		id = "Player";
 		hitbox->getDrawNode()->setZOrder(10);
 		sprite->setZOrder(11);
+#ifdef _DEBUG
 		hp = INT_MAX;
+#else
+		hp = 3;
+#endif
 		currentGun = new olReliable();// for now
 	}
 	void Player::update(float dt)
 	{
+
+		for (int i = 0; i < GameObject::gameObjects.size(); i++)
+			if (GameObject::gameObjects[i]->id != "Player" && hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox))
+				hitbox->setLocation(hitbox->getLocation() - hitbox->getVelocity());
+
+
 		checkInput();
 		shoot(dt);
 		checkList();
@@ -74,16 +84,16 @@ namespace Sedna {
 		}
 
 		///<keyboard input,comment this out when you wanna actually test stuff.>
-		//if (isEvent(Events::W))
-		//	hitbox->setForce(cocos2d::Vec2(0, 300.0f));
-		//else if (isEvent(Events::S))
-		//	hitbox->setForce(cocos2d::Vec2(0, -300.0f));
-		//else if (isEvent(Events::A))
-		//	hitbox->setForce(cocos2d::Vec2(-300.0f, 0));
-		//else if (isEvent(Events::D))
-		//	hitbox->setForce(cocos2d::Vec2(300.0f, 0));
-		//else
-		//	hitbox->addForce(hitbox->getVelocity().x *-10.0f, hitbox->getVelocity().y*-10.0f);
+		if (isEvent(Events::W))
+			hitbox->setForce(cocos2d::Vec2(0, 300.0f));
+		else if (isEvent(Events::S))
+			hitbox->setForce(cocos2d::Vec2(0, -300.0f));
+		else if (isEvent(Events::A))
+			hitbox->setForce(cocos2d::Vec2(-300.0f, 0));
+		else if (isEvent(Events::D))
+			hitbox->setForce(cocos2d::Vec2(300.0f, 0));
+		else
+			hitbox->addForce(hitbox->getVelocity().x *-10.0f, hitbox->getVelocity().y*-10.0f);
 
 
 	}
@@ -94,7 +104,7 @@ namespace Sedna {
 				if (GameObject::gameObjects[i]->id != "Player" && GameObject::gameObjects[i]->id != "Table"&&
 					projectiles[j]->hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox)) {
 
-					GameObject::gameObjects[i]->hp -= currentGun->getDamage();/*change this to gun's dmaage when you can*/
+					GameObject::gameObjects[i]->hp -= currentGun->getDamage();
 
 					projectiles[j]->hitbox->getDrawNode()->removeFromParent();
 					projectiles[j]->sprite->removeFromParent();
