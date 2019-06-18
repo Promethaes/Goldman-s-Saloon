@@ -66,12 +66,4 @@ bool HelloWorld::init()
 	return true;
 }
 
-Background::Background(const char* path, cocos2d::Scene* scene)
-{
-	//ALL BACKGROUNDS SHOULD BE 1920 by 1080
-	sprite = cocos2d::Sprite::create(path);
-	sprite->setAnchorPoint(cocos2d::Vec2(0.0f, 0.0f));
-	sprite->setScaleX(0.85f);
-	sprite->setScaleY(0.92f);
-	scene->addChild(sprite, -1000);
-}
+

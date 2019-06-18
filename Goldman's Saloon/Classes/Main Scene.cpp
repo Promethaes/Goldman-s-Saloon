@@ -1,7 +1,7 @@
 #include "Main Scene.h"
 #include "Primitive.h"
+#include "CameraTracker.h"
 #define GameObjects Sedna::GameObject::gameObjects
-#define CAMERASPEED 1.0f
 bool MainScene::init()
 {
 	if (!HelloWorld::init())
@@ -17,13 +17,14 @@ bool MainScene::init()
 	outlaws.push_back(new Sedna::Rifleman(this, cocos2d::Vec2(200, 100)));
 	outlaws.push_back(new Sedna::CrazyPete(this, cocos2d::Vec2(100, 250)));
 
-	bg1 = new Background("bg1.png", this);
-	bg2 = new Background("bg2.png", this);
-	bg2->sprite->setPosition(bg2->sprite->getPosition().x, bg2->sprite->getContentSize().height - 30);
+
+	auto bg2 = new Sedna::Background("bg2.png", this);
+	cameraTracker = new Sedna::CameraTracker(this, cocos2d::Vec2(bg2->sprite->getPosition().x, bg2->sprite->getContentSize().height - 30));
+	bg2->sprite->removeFromParent();
+
+
 
 	//hold the difference betweeen the two screens
-	cameraTracker = new CameraTracker(this, bg2->sprite->getPosition());
-
 	//290
 //	std::cout << hold.y;
 
@@ -44,7 +45,8 @@ void MainScene::update(float dt)
 	DPadCameraMovement();
 #endif
 
-	backgroundSwitch();
+	//backgroundSwitch();
+	this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
 
 
 
@@ -57,7 +59,7 @@ void MainScene::update(float dt)
 			i--;
 		}
 
-
+	//could handle this internally
 	if (p1Triggers.LT > 0)
 		for (int i = 0; i < GameObjects.size(); i++)
 			GameObjects[i]->activateBulletTime();
@@ -85,35 +87,6 @@ void MainScene::DPadCameraMovement()
 
 }
 
-void MainScene::backgroundSwitch()
-{
-	this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
-
-	//background changing code!! GREAT SUCCESS
-	if (cameraTracker->hitbox->getLocation().y - bg1->sprite->getPosition().y >= 290 * 2) {
-		bg1->sprite->setTexture("bg2.png");
-		bg1->sprite->setPosition(bg1->sprite->getPosition() + cocos2d::Vec2(0, 290 * 2));
-	}
 
 
-	if (cameraTracker->hitbox->getLocation().y - bg2->sprite->getPosition().y >= 290 * 2)
-		bg2->sprite->setPosition(bg2->sprite->getPosition() + cocos2d::Vec2(0, 290 * 2));
 
-}
-
-CameraTracker::CameraTracker(cocos2d::Scene* scene, const cocos2d::Vec2& LOCATION)
-	:GameObject("crosshairs.png", scene, LOCATION, 1)
-{
-	id = "CAMERA";
-	hp = INT_MAX;
-}
-
-void CameraTracker::update(float dt)
-{
-	hitbox->setLocation(hitbox->getLocation() + cocos2d::Vec2(0, CAMERASPEED));
-	updateGO(dt);
-}
-
-void CameraTracker::die()
-{
-}
