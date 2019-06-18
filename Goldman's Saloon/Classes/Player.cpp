@@ -36,7 +36,7 @@ namespace Sedna {
 		updateGO(dt);
 	}
 
-
+	//might wanna make this not a pure virtual function in game object header
 	void Player::die()
 	{
 		for (int i = 0; i < projectiles.size(); i++) {
