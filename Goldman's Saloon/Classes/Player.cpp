@@ -24,7 +24,7 @@ namespace Sedna {
 	{
 
 		for (int i = 0; i < GameObject::gameObjects.size(); i++)
-			if (GameObject::gameObjects[i]->id != "Player" && hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox))
+			if (GameObject::gameObjects[i]->id != "Player" && hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox) && !kickTables())
 				hitbox->setLocation(hitbox->getLocation() - hitbox->getVelocity());
 
 
@@ -49,6 +49,16 @@ namespace Sedna {
 		}
 		hitbox->getDrawNode()->removeFromParent();
 		sprite->removeFromParent();
+	}
+	bool Player::kickTables()
+	{
+		for (int i = 0; i < GameObject::gameObjects.size(); i++)
+			if (GameObject::gameObjects[i]->id == "Table" && hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox) && pController->isButtonPressed(A)) {
+				auto force = hitbox->getLocation() - GameObject::gameObjects[i]->hitbox->getLocation();
+				GameObject::gameObjects[i]->hitbox->addForce(-force * 10);
+				return true;
+			}
+		return false;
 	}
 	void Player::shoot(float dt)
 	{

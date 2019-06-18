@@ -10,6 +10,9 @@ namespace Sedna {
 	}
 	void Table::update(float dt)
 	{
+		if(hitbox->getVelocity() != cocos2d::Vec2(0,0))
+			hitbox->addForce(hitbox->getVelocity().x *-10.0f, hitbox->getVelocity().y*-10.0f);
+
 		updateGO(dt);
 	}
 	void Table::die()

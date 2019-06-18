@@ -12,6 +12,7 @@ namespace Sedna {
 		void setGun(Gun* gun) { currentGun = gun; }
 		void die() override;
 	private:
+		bool kickTables();
 		void shoot(float dt);
 		void checkList();
 		void checkInput();
