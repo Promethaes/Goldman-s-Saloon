@@ -40,12 +40,11 @@ void MainScene::update(float dt)
 	p1Controller->getTriggers(p1Triggers);
 
 #ifdef _DEBUG
-
 	//check to see if the camera should move
 	DPadCameraMovement();
 #endif
 
-	//backgroundSwitch();
+	
 	//this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
 
 
@@ -59,7 +58,10 @@ void MainScene::update(float dt)
 			i--;
 		}
 
-	//could handle this internally
+	//could handle this internally, probably a good idea not to since this checks if:
+	//on the previous update, the player held LT. if they did, then activate bulletTime on all game objects
+	//if handled internally, this would make the player 1 update ahead of all the other game objects, since this would be inside
+	//its update function.
 	if (p1Triggers.LT > 0)
 		for (int i = 0; i < GameObjects.size(); i++)
 			GameObjects[i]->activateBulletTime();

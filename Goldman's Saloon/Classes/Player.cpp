@@ -20,14 +20,11 @@ namespace Sedna {
 #endif
 		currentGun = new olReliable();// for now
 	}
+
+
 	void Player::update(float dt)
 	{
-
-		for (int i = 0; i < GameObject::gameObjects.size(); i++)
-			if (GameObject::gameObjects[i]->id != "Player" && hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox) && !kickTables())
-				hitbox->setLocation(hitbox->getLocation() - hitbox->getVelocity());
-
-
+		checkCollision();
 		checkInput();
 		shoot(dt);
 		checkList();
@@ -38,9 +35,10 @@ namespace Sedna {
 
 		updateGO(dt);
 	}
+
+
 	void Player::die()
 	{
-		//THIS LOGIC WILL CHANGE. this is just a placeholder for now.
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
 			projectiles[i]->sprite->removeFromParent();
@@ -50,6 +48,18 @@ namespace Sedna {
 		hitbox->getDrawNode()->removeFromParent();
 		sprite->removeFromParent();
 	}
+
+
+
+	void Player::checkCollision()
+	{
+		for (int i = 0; i < GameObject::gameObjects.size(); i++)
+			if (GameObject::gameObjects[i]->id != "Player" && hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox) && !kickTables())
+				hitbox->setLocation(hitbox->getLocation() - hitbox->getVelocity());
+	}
+
+
+
 	bool Player::kickTables()
 	{
 		for (int i = 0; i < GameObject::gameObjects.size(); i++)
@@ -60,6 +70,9 @@ namespace Sedna {
 			}
 		return false;
 	}
+
+
+
 	void Player::shoot(float dt)
 	{
 		pController->getTriggers(pTriggers);
@@ -68,6 +81,9 @@ namespace Sedna {
 		if (pTriggers.RT > 0.0f)
 			currentGun->shoot(dt, this);
 	}
+
+
+
 	void Player::checkList()
 	{
 		if (projectiles.size() > currentGun->getProjLimit()) {
@@ -78,6 +94,9 @@ namespace Sedna {
 		}
 
 	}
+
+
+
 	void Player::checkInput()
 	{
 		pController->updateSticks(pSticks);
@@ -93,17 +112,17 @@ namespace Sedna {
 				force.y * 300 : 0.0f));
 		}
 
-		///<keyboard input,comment this out when you wanna actually test stuff.>
-		if (isEvent(Events::W))
-			hitbox->setForce(cocos2d::Vec2(0, 300.0f));
-		else if (isEvent(Events::S))
-			hitbox->setForce(cocos2d::Vec2(0, -300.0f));
-		else if (isEvent(Events::A))
-			hitbox->setForce(cocos2d::Vec2(-300.0f, 0));
-		else if (isEvent(Events::D))
-			hitbox->setForce(cocos2d::Vec2(300.0f, 0));
-		else
-			hitbox->addForce(hitbox->getVelocity().x *-10.0f, hitbox->getVelocity().y*-10.0f);
+		//////<keyboard input,comment this out when you wanna actually test stuff.>
+		///if (isEvent(Events::W))
+		///	hitbox->setForce(cocos2d::Vec2(0, 300.0f));
+		///else if (isEvent(Events::S))
+		///	hitbox->setForce(cocos2d::Vec2(0, -300.0f));
+		///else if (isEvent(Events::A))
+		///	hitbox->setForce(cocos2d::Vec2(-300.0f, 0));
+		///else if (isEvent(Events::D))
+		///	hitbox->setForce(cocos2d::Vec2(300.0f, 0));
+		///else
+		///	hitbox->addForce(hitbox->getVelocity().x *-10.0f, hitbox->getVelocity().y*-10.0f);
 
 
 	}
