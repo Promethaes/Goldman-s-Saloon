@@ -18,7 +18,7 @@ namespace Sedna {
 #else
 		hp = 3;
 #endif
-		currentGun = new olReliable();// for now
+		currentGun = new theBiggestIron();// for now
 	}
 
 

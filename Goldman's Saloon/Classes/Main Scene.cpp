@@ -45,7 +45,7 @@ void MainScene::update(float dt)
 #endif
 
 	
-	//this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
+	this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
 
 
 

@@ -26,13 +26,18 @@ namespace Sedna {
 	public:
 		olReliable();
 		void shoot(float dt, Sedna::GameObject* p, bool isPlayer = true) override;
-
 	};
 
 	//shotgun
 	class bloodyMary : public Gun {
 	public:
 		bloodyMary();
+		void shoot(float dt, Sedna::GameObject*p, bool isPlayer = true) override;
+	};
+
+	class theBiggestIron : public Gun {
+	public:
+		theBiggestIron();
 		void shoot(float dt, Sedna::GameObject*p, bool isPlayer = true) override;
 	};
 
@@ -47,9 +52,6 @@ namespace Sedna {
 	public:
 		dynamite();
 		void shoot(float dt, Sedna::GameObject*p, bool isPlayer = true) override;
-
-
-	private:
 	};
 
 }

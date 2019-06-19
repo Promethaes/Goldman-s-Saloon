@@ -192,7 +192,7 @@ namespace Sedna {
 						}
 
 						auto norm = direction / sqrt(direction.x*direction.x + direction.y*direction.y);
-						
+
 
 						p->projectiles.back()->hitbox->setForce(norm * 700);
 
@@ -228,11 +228,47 @@ namespace Sedna {
 				//only let crazy pete use this...for now
 
 				static_cast<CrazyPete*>(p)->dynStick->updateGO(dt);
-				static_cast<CrazyPete*>(p)->dynStick->hitbox->setForce(cocos2d::Vec2(0,-471));
+				static_cast<CrazyPete*>(p)->dynStick->hitbox->setForce(cocos2d::Vec2(0, -471));
 				static_cast<CrazyPete*>(p)->dynStick->sprite->setVisible(true);
 
 			}
 
+		}
+		if (hasShot)
+			gunTimer += dt;
+	}
+	theBiggestIron::theBiggestIron()
+		:Gun(1, 10, 0.089f, 100)
+	{
+	}
+	void theBiggestIron::shoot(float dt, Sedna::GameObject * p, bool isPlayer)
+	{
+		if (gunTimer > gunTimerMax) {
+			gunTimer = 0;
+			hasShot = false;
+		}
+		if (gunTimer == 0) {
+			hasShot = true;
+			p->projectiles.push_back(new Sedna::Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
+
+			p->projectiles.back()->update(dt);
+
+			if (isPlayer) {
+				auto vector = cocos2d::Vec2(static_cast<Player*>(p)->pSticks[1].x, static_cast<Player*>(p)->pSticks[1].y);
+				auto direction = vector / sqrt(vector.x*vector.x + vector.y*vector.y);
+
+				if (static_cast<Player*>(p)->pSticks[1].y >= -DEADZONE)
+					p->projectiles.back()->hitbox->setForce((static_cast<Player*>(p)->pSticks[1].x > DEADZONE || static_cast<Player*>(p)->pSticks[1].x < -DEADZONE || static_cast<Player*>(p)->pSticks[1].y > DEADZONE)
+						? direction * 471 : cocos2d::Vec2(0, 471));
+				else {
+					p->projectiles.back()->hitbox->getDrawNode()->removeFromParent();
+					p->projectiles.back()->sprite->removeFromParent();
+					p->projectiles.pop_back();
+				}
+			}
+			else {
+
+			}
 		}
 		if (hasShot)
 			gunTimer += dt;
