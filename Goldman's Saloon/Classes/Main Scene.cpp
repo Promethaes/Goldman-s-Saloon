@@ -11,7 +11,7 @@ bool MainScene::init()
 
 	//all of the enemies are in for testing purposes
 	playerOne = new Sedna::Player(p1Controller, "player1.png", this);
-	tables.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200)));
+	tables.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200),Powerups::healthPot));
 	outlaws.push_back(new Sedna::Outlaw(this, cocos2d::Vec2(300, 200)));
 	outlaws.push_back(new Sedna::ShotgunOutlaw(this, cocos2d::Vec2(300, 100)));
 	outlaws.push_back(new Sedna::Rifleman(this, cocos2d::Vec2(200, 100)));
@@ -70,7 +70,7 @@ void MainScene::update(float dt)
 		Sedna::GameObject::gameObjects[i]->update(dt);
 
 
-	//dt /= 2;
+
 
 
 

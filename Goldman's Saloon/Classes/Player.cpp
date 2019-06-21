@@ -3,12 +3,14 @@
 #include "Projectile.h"
 #include "Input.h"
 #include "Events.h"
+#include "Table.h"
 #define DEADZONE 0.2f
 
 namespace Sedna {
-	Player::Player(XinputController* CONTROLLER, const char * path, cocos2d::Scene* scene, const cocos2d::Vec2 & LOCATION, float RADIUS)
+	Player::Player(XinputController* CONTROLLER, const char * path, cocos2d::Scene* scene, unsigned playerNumber, const cocos2d::Vec2 & LOCATION, float RADIUS)
 		:GameObject(path, scene, LOCATION, RADIUS)
 	{
+		this->playerNumber = playerNumber;
 		pController = CONTROLLER;
 		id = "Player";
 		hitbox->getDrawNode()->setZOrder(10);
@@ -24,7 +26,18 @@ namespace Sedna {
 
 	void Player::update(float dt)
 	{
-		checkCollision();
+		if (invincible) {
+			invincibilityTimer -= dt;
+		
+			if (invincibilityTimer <= 0) {
+				invincible = false;
+				invincibilityTimer = 5.0f;
+			}
+		
+		}
+
+
+		checkCollision(dt);
 		checkInput();
 		shoot(dt);
 		checkList();
@@ -51,11 +64,12 @@ namespace Sedna {
 
 
 
-	void Player::checkCollision()
+	void Player::checkCollision(float dt)
 	{
 		for (int i = 0; i < GameObject::gameObjects.size(); i++)
 			if (GameObject::gameObjects[i]->id != "Player" && hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox) && !kickTables())
 				hitbox->setLocation(hitbox->getLocation() - hitbox->getVelocity());
+
 	}
 
 
@@ -66,6 +80,17 @@ namespace Sedna {
 			if (GameObject::gameObjects[i]->id == "Table" && hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox) && pController->isButtonPressed(A)) {
 				auto force = hitbox->getLocation() - GameObject::gameObjects[i]->hitbox->getLocation();
 				GameObject::gameObjects[i]->hitbox->addForce(-force * 10);
+
+				// == 1 FOR READABILITY. lol
+				//hp
+				if (static_cast<Table*>(GameObject::gameObjects[i])->getPotionType() == 1)
+					hp < 3 ? hp++ : hp = 3;
+				//invincibility
+				else if (static_cast<Table*>(GameObject::gameObjects[i])->getPotionType() == 2)
+					invincible = true;
+				static_cast<Table*>(GameObject::gameObjects[i])->setPotionType(Powerups::none);
+				//dunno how revive logic is gonna work yet
+
 				return true;
 			}
 		return false;

@@ -39,6 +39,17 @@ namespace Sedna {
 				if (GameObject::gameObjects[i]->id != "Outlaw" &&
 					projectiles[j]->hitbox->checkCollision(*GameObject::gameObjects[i]->hitbox)) {
 
+
+					//this isnt one if statement because it could nullptr if it was
+					//INVINCIBILITY CODE
+					if (GameObject::gameObjects[i]->id == "Player") {
+						if (static_cast<Player*>(GameObject::gameObjects[i])->invincible)
+							continue;
+						else
+							static_cast<Player*>(GameObject::gameObjects[i])->invincible = true;
+					}
+
+
 					GameObject::gameObjects[i]->hp -= currentGun->getDamage();/*change this to gun's dmaage when you can*/
 
 					projectiles[j]->hitbox->getDrawNode()->removeFromParent();
