@@ -41,7 +41,7 @@ namespace Sedna {
 	public:
 		CirclePrimitive(const cocos2d::Vec2 &LOCATION,float RADIUS, float ANGLE,unsigned int SEGMENTS);
 		CirclePrimitive();
-		~CirclePrimitive();
+		
 
 
 		void setRadius(float r) { radius = r; }

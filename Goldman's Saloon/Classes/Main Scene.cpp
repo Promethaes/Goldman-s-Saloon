@@ -21,7 +21,8 @@ bool MainScene::init()
 	auto bg2 = new Sedna::Background("bg2.png", this);
 	cameraTracker = new Sedna::CameraTracker(this, cocos2d::Vec2(bg2->sprite->getPosition().x, bg2->sprite->getContentSize().height - 30));
 	bg2->sprite->removeFromParent();
-
+	delete bg2;
+	bg2 = nullptr;
 
 
 	//hold the difference betweeen the two screens
@@ -45,7 +46,7 @@ void MainScene::update(float dt)
 #endif
 
 	
-	this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
+	//this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
 
 
 
@@ -54,6 +55,8 @@ void MainScene::update(float dt)
 		if (GameObjects[i]->hp <= 0) {
 			GameObjects[i]->die();
 
+			delete GameObjects[i];
+			GameObjects[i] = nullptr;
 			GameObjects.erase(GameObjects.begin() + i);
 			i--;
 		}

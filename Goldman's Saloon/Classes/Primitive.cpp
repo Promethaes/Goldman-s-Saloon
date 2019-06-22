@@ -100,9 +100,7 @@ namespace Sedna {
 	{
 	}
 
-	Sedna::CirclePrimitive::~CirclePrimitive()
-	{
-	}
+	
 
 	cocos2d::DrawNode * Sedna::CirclePrimitive::getDrawNode() const
 	{

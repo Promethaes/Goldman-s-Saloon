@@ -35,7 +35,21 @@ namespace Sedna {
 			}
 		
 		}
-
+#ifdef _DEBUG
+		if (pController->isButtonPressed(X)) {
+			//removes the data currentGun points to
+			delete currentGun;
+			currentGun = nullptr;
+			currentGun = new theBiggestIron();
+		}
+#endif
+		if (currentGun->getAmmo() == 0) {
+			//removes the data currentGun points to
+			delete currentGun;
+			currentGun = nullptr;
+			currentGun = new olReliable();
+		}
+		
 
 		checkCollision(dt);
 		checkInput();
@@ -55,11 +69,15 @@ namespace Sedna {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
 			projectiles[i]->sprite->removeFromParent();
+			delete projectiles[i];
+			projectiles[i] = nullptr;
 			projectiles.erase(projectiles.begin() + i);
 			i--;
 		}
 		hitbox->getDrawNode()->removeFromParent();
 		sprite->removeFromParent();
+		delete currentGun;
+		currentGun = nullptr;
 	}
 
 
@@ -88,8 +106,11 @@ namespace Sedna {
 				//invincibility
 				else if (static_cast<Table*>(GameObject::gameObjects[i])->getPotionType() == 2)
 					invincible = true;
-				static_cast<Table*>(GameObject::gameObjects[i])->setPotionType(Powerups::none);
+					
 				//dunno how revive logic is gonna work yet
+
+				/*----->*/static_cast<Table*>(GameObject::gameObjects[i])->resetPotionType();
+				
 
 				return true;
 			}
@@ -115,6 +136,8 @@ namespace Sedna {
 
 			projectiles.front()->hitbox->getDrawNode()->removeFromParent();
 			projectiles.front()->sprite->removeFromParent();
+			delete projectiles.front();
+			projectiles.front() = nullptr;
 			projectiles.erase(projectiles.begin());
 		}
 
@@ -162,6 +185,8 @@ namespace Sedna {
 
 					projectiles[j]->hitbox->getDrawNode()->removeFromParent();
 					projectiles[j]->sprite->removeFromParent();
+					delete projectiles[j];
+					projectiles[j] = nullptr;
 					projectiles.erase(projectiles.begin() + j);
 					j--;
 

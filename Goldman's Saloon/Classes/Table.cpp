@@ -8,9 +8,17 @@ namespace Sedna {
 		id = "Table";
 		hp = 4;
 		potionType = POTIONTYPE;
+		if (potionType == Powerups::healthPot)
+			sprite->setTexture("Table_HealthPot.png");
+		else if (potionType == Powerups::invincePot)
+			sprite->setTexture("Table_invPot.png");
+		else if (potionType == Powerups::revivePot)
+			sprite->setTexture("Table_RFPot.png");
+
 	}
 	void Table::update(float dt)
 	{
+
 		if (hitbox->getVelocity() != cocos2d::Vec2(0, 0))
 			hitbox->addForce(hitbox->getVelocity().x *-10.0f, hitbox->getVelocity().y*-10.0f);
 

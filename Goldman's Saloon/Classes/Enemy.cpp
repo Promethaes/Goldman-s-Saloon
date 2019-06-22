@@ -26,11 +26,17 @@ namespace Sedna {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
 			projectiles[i]->sprite->removeFromParent();
+			delete projectiles[i];
+			projectiles[i] = nullptr;
 			projectiles.erase(projectiles.begin() + i);
 			i--;
 		}
 		hitbox->getDrawNode()->removeFromParent();
+		delete hitbox;
+		hitbox = nullptr;
 		sprite->removeFromParent();
+		delete currentGun;
+		currentGun = nullptr;
 	}
 	void Outlaw::checkProjectileCollision()
 	{
@@ -54,6 +60,8 @@ namespace Sedna {
 
 					projectiles[j]->hitbox->getDrawNode()->removeFromParent();
 					projectiles[j]->sprite->removeFromParent();
+					delete projectiles[j];
+					projectiles[j] = nullptr;
 					projectiles.erase(projectiles.begin() + j);
 					j--;
 
@@ -70,6 +78,8 @@ namespace Sedna {
 
 			projectiles.front()->hitbox->getDrawNode()->removeFromParent();
 			projectiles.front()->sprite->removeFromParent();
+			delete projectiles.front();
+			projectiles.front() = nullptr;
 			projectiles.erase(projectiles.begin());
 		}
 	}
@@ -83,11 +93,17 @@ namespace Sedna {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
 			projectiles[i]->sprite->removeFromParent();
+			delete projectiles[i];
+			projectiles[i] = nullptr;
 			projectiles.erase(projectiles.begin() + i);
 			i--;
 		}
 		hitbox->getDrawNode()->removeFromParent();
+		delete hitbox;
+		hitbox = nullptr;
 		sprite->removeFromParent();
+		delete currentGun;
+		currentGun = nullptr;
 	}
 
 	Rifleman::Rifleman(cocos2d::Scene* scene, const cocos2d::Vec2& LOCATION, const char* path)
@@ -101,11 +117,17 @@ namespace Sedna {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
 			projectiles[i]->sprite->removeFromParent();
+			delete projectiles[i];
+			projectiles[i] = nullptr;
 			projectiles.erase(projectiles.begin() + i);
 			i--;
 		}
 		hitbox->getDrawNode()->removeFromParent();
+		delete hitbox;
+		hitbox = nullptr;
 		sprite->removeFromParent();
+		delete currentGun;
+		currentGun = nullptr;
 	}
 	CrazyPete::CrazyPete(cocos2d::Scene * scene, const cocos2d::Vec2 & LOCATION, const char * path)
 		:Outlaw(scene,LOCATION,path)
@@ -130,13 +152,24 @@ namespace Sedna {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles[i]->hitbox->getDrawNode()->removeFromParent();
 			projectiles[i]->sprite->removeFromParent();
+			delete projectiles[i];
+			projectiles[i] = nullptr;
 			projectiles.erase(projectiles.begin() + i);
 			i--;
 		}
 		hitbox->getDrawNode()->removeFromParent();
+		delete hitbox;
+		hitbox = nullptr;
 		sprite->removeFromParent();
 		dynStick->hitbox->getDrawNode()->removeFromParent();
+		delete dynStick->hitbox;
+		dynStick->hitbox = nullptr;
 		dynStick->sprite->removeFromParent();
+		delete dynStick;
+		dynStick = nullptr;
+		delete currentGun;
+		currentGun = nullptr;
+
 	}
 	void CrazyPete::checkDynamite(float dt)
 	{

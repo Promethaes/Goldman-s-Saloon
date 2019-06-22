@@ -30,6 +30,7 @@ namespace Sedna {
 		}
 		if (gunTimer == 0) {
 			hasShot = true;
+			ammo--;
 			//make a new projectile
 			p->projectiles.push_back(new Sedna::Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
 
@@ -83,6 +84,8 @@ namespace Sedna {
 
 		if (gunTimer == 0) {
 			hasShot = true;
+			ammo--;
+
 			for (int i = 0; i < 5; i++) {
 				p->projectiles.push_back(new Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
 				p->projectiles.back()->update(dt);
@@ -171,6 +174,8 @@ namespace Sedna {
 		}
 		if (gunTimer == 0) {
 			hasShot = true;
+			ammo--;
+
 			p->projectiles.push_back(new Sedna::Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
 
 			p->projectiles.back()->update(dt);
@@ -215,6 +220,7 @@ namespace Sedna {
 		}
 		if (gunTimer == 0) {
 			hasShot = true;
+			ammo--;
 
 			//for (int i = 0; i < 8; i++) {
 			//	p->projectiles.push_back(new Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
@@ -249,6 +255,8 @@ namespace Sedna {
 		}
 		if (gunTimer == 0) {
 			hasShot = true;
+			ammo--;
+
 			p->projectiles.push_back(new Sedna::Projectile("Bullet2.png", p->getScene(), p->hitbox->getLocation(), 5));
 
 			p->projectiles.back()->update(dt);

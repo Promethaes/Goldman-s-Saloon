@@ -12,6 +12,7 @@ namespace Sedna {
 		virtual void shoot(float dt, Sedna::GameObject* p, bool isPlayer = true) = 0;
 		unsigned getDamage() const { return damage; }
 		unsigned getProjLimit() const { return projLimit; }
+		unsigned getAmmo() const { return ammo; }
 	protected:
 		unsigned damage, projLimit, ammo;
 		//gunTimerMax should not change

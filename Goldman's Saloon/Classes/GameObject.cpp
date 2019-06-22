@@ -23,6 +23,13 @@ namespace Sedna {
 		hitbox->update(dt);
 		sprite->setPosition(hitbox->getLocation());
 	}
+	GameObject::~GameObject()
+	{
+		delete hitbox;
+		hitbox = nullptr;
+		//scene = nullptr;
+		
+	}
 	void GameObject::die()
 	{
 	}

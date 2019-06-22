@@ -15,7 +15,7 @@ namespace Sedna {
 		void update(float dt) override;
 		void die() override;
 		Powerups::Powerup_Type getPotionType() const { return potionType; }
-		void setPotionType(Powerups::Powerup_Type p) { potionType = p; }
+		void resetPotionType() { potionType = Powerups::none; sprite->setTexture("TableKnocked.png"); }
 	private:
 		//handling this stuff inside player
 		Powerups::Powerup_Type potionType;
