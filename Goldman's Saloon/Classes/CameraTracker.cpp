@@ -25,8 +25,11 @@ namespace Sedna {
 
 	void CameraTracker::update(float dt)
 	{
-		hitbox->setLocation(hitbox->getLocation() + cocos2d::Vec2(0, CAMERASPEED));
-		backgroundSwitch();
+		if (!stop) {
+			scene->getDefaultCamera()->setPosition(scene->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
+			hitbox->setLocation(hitbox->getLocation() + cocos2d::Vec2(0, CAMERASPEED));
+			backgroundSwitch();
+		}
 		updateGO(dt);
 	}
 

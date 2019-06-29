@@ -13,6 +13,7 @@ namespace Sedna {
 		unsigned getDamage() const { return damage; }
 		unsigned getProjLimit() const { return projLimit; }
 		unsigned getAmmo() const { return ammo; }
+		cocos2d::Sprite* getSprite() const { return gunSprite; }
 	protected:
 		cocos2d::Sprite* gunSprite;
 		unsigned damage, projLimit, ammo;

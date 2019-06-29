@@ -21,5 +21,7 @@ namespace Sedna {
 		void backgroundSwitch();
 		Background* bg1;
 		Background* bg2;
+
+		bool stop = false;
 	};
 }

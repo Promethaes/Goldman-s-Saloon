@@ -1,6 +1,7 @@
 #include "Main Scene.h"
 #include "Primitive.h"
 #include "CameraTracker.h"
+#include <iostream>
 #define GameObjects Sedna::GameObject::gameObjects
 bool MainScene::init()
 {
@@ -11,7 +12,7 @@ bool MainScene::init()
 
 	//all of the enemies are in for testing purposes
 	playerOne = new Sedna::Player(p1Controller, "player1.png", this);
-	tables.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200),Powerups::healthPot));
+	tables.push_back(new Sedna::Table(this, cocos2d::Vec2(200, 200), Powerups::healthPot));
 	outlaws.push_back(new Sedna::Outlaw(this, cocos2d::Vec2(300, 200)));
 	outlaws.push_back(new Sedna::ShotgunOutlaw(this, cocos2d::Vec2(300, 100)));
 	outlaws.push_back(new Sedna::Rifleman(this, cocos2d::Vec2(200, 100)));
@@ -45,8 +46,7 @@ void MainScene::update(float dt)
 	DPadCameraMovement();
 #endif
 
-	
-	this->getDefaultCamera()->setPosition(this->getDefaultCamera()->getPosition() + cocos2d::Vec2(0, CAMERASPEED));
+
 
 
 
@@ -70,11 +70,13 @@ void MainScene::update(float dt)
 	else
 		Sedna::CirclePrimitive::bulletTime = false;
 
-		
+
 
 	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++)
 		Sedna::GameObject::gameObjects[i]->update(dt);
 
+
+	std::cout << playerOne->hitbox->getLocation().x << " " << playerOne->hitbox->getLocation().y << "\n";
 
 }
 
