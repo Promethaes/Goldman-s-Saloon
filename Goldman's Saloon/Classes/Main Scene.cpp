@@ -66,8 +66,11 @@ void MainScene::update(float dt)
 	//if handled internally, this would make the player 1 update ahead of all the other game objects, since this would be inside
 	//its update function.
 	if (p1Triggers.LT > 0)
-		for (int i = 0; i < GameObjects.size(); i++)
-			GameObjects[i]->activateBulletTime();
+		Sedna::CirclePrimitive::bulletTime = true;
+	else
+		Sedna::CirclePrimitive::bulletTime = false;
+
+		
 
 	for (int i = 0; i < Sedna::GameObject::gameObjects.size(); i++)
 		Sedna::GameObject::gameObjects[i]->update(dt);

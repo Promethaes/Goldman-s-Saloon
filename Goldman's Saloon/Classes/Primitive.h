@@ -60,6 +60,8 @@ namespace Sedna {
 		bool checkCloseTouching(CirclePrimitive other);
 
 		float dt = 0.0f;
+
+		static bool bulletTime;
 	private:
 		cocos2d::Vec2 location;
 		float radius;

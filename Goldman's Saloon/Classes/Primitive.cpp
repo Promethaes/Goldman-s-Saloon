@@ -58,7 +58,7 @@ namespace Sedna {
 		{
 			//make sure dt is either the largest or smallest it can be
 			dt = dt > .9f ? .9f : 0.01f;
-			
+
 			//invert dt2
 			dt2 *= -1;
 		}
@@ -68,7 +68,7 @@ namespace Sedna {
 		p1 += velocity;
 		p2 += velocity;
 		this->Node->clear();
-		
+
 		//draw the new rectangle at the new coordinates determined by adding the velocity to the two member vectors
 		Node->drawSolidRect(p1, p2, colourLerp(cocos2d::Color4F(1.0f, 0.0f, 0.0f, 1.0f), cocos2d::Color4F(0.0f, 0.0f, 1.0f, 1.0f), dt));
 	}
@@ -89,6 +89,7 @@ namespace Sedna {
 
 
 	//Circle
+	bool CirclePrimitive::bulletTime = false;
 	Sedna::CirclePrimitive::CirclePrimitive(const cocos2d::Vec2 &LOCATION, float RADIUS, float ANGLE, unsigned int SEGMENTS)
 		: Node(cocos2d::DrawNode::create()), location(LOCATION), radius(RADIUS), angle(ANGLE), segments(SEGMENTS)
 	{
@@ -100,7 +101,7 @@ namespace Sedna {
 	{
 	}
 
-	
+
 
 	cocos2d::DrawNode * Sedna::CirclePrimitive::getDrawNode() const
 	{
@@ -113,7 +114,10 @@ namespace Sedna {
 
 		this->dt = dt;
 
-		location += velocity;
+		if (bulletTime)
+			location += velocity / 2;
+		else
+			location += velocity;
 		Node->clear();
 		Node->drawCircle(location, radius, angle, segments, false, cocos2d::Color4F(1.0f, 0.0f, 0.0f, 1.0f));
 
@@ -121,14 +125,14 @@ namespace Sedna {
 
 	void CirclePrimitive::addForce(float vX, float vY)
 	{
-		
+
 		cocos2d::Vec2 v = cocos2d::Vec2(vX, vY);
 		int maxVelocity = 10;
 		int minVelocity = -10;
 
 		//velocity is capped here
 
-		velocity += v*dt;
+		velocity += v * dt;
 
 		if (velocity.x >= maxVelocity)
 			velocity.x = maxVelocity;
@@ -161,7 +165,7 @@ namespace Sedna {
 
 	void CirclePrimitive::setForce(cocos2d::Vec2 v)
 	{
-		velocity = v*dt;
+		velocity = v * dt;
 	}
 
 	void CirclePrimitive::setLocation(cocos2d::Vec2 p)
