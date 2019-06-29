@@ -17,6 +17,7 @@ namespace Sedna {
 	Sedna::olReliable::olReliable()
 		: Gun(2, 4, 0.5f, INT_MAX)
 	{
+		gunSprite = cocos2d::Sprite::create("gun1.png");
 	}
 	//shoot is a pure virtual function, which means that all child classes of gun must create their own definition for it.
 	//this is the least complicated one.
@@ -73,6 +74,7 @@ namespace Sedna {
 	Sedna::bloodyMary::bloodyMary()
 		:Gun(3, 5, 0.9f, 5)
 	{
+		gunSprite = cocos2d::Sprite::create("gun2.png");
 	}
 
 	void bloodyMary::shoot(float dt, Sedna::GameObject * p, bool isPlayer)
@@ -246,6 +248,7 @@ namespace Sedna {
 	theBiggestIron::theBiggestIron()
 		:Gun(1, 10, 0.089f, 100)
 	{
+		gunSprite = cocos2d::Sprite::create("gun3.png");
 	}
 	void theBiggestIron::shoot(float dt, Sedna::GameObject * p, bool isPlayer)
 	{

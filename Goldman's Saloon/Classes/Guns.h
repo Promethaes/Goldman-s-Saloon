@@ -14,6 +14,7 @@ namespace Sedna {
 		unsigned getProjLimit() const { return projLimit; }
 		unsigned getAmmo() const { return ammo; }
 	protected:
+		cocos2d::Sprite* gunSprite;
 		unsigned damage, projLimit, ammo;
 		//gunTimerMax should not change
 		float gunTimer = 0, gunTimerMax;

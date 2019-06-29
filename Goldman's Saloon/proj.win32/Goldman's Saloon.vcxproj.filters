@@ -54,6 +54,7 @@
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\CameraTracker.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Goldman%27s Saloon\Classes\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -99,6 +100,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\CameraTracker.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Goldman%27s Saloon\Classes\UI.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

@@ -159,6 +159,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Primitive.cpp" />
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Projectile.cpp" />
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\Table.cpp" />
+    <ClCompile Include="..\..\Goldman%27s Saloon\Classes\UI.cpp" />
     <ClCompile Include="..\..\Goldman%27s Saloon\Classes\XinputManager.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
@@ -176,6 +177,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Primitive.h" />
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Projectile.h" />
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\Table.h" />
+    <ClInclude Include="..\..\Goldman%27s Saloon\Classes\UI.h" />
     <ClInclude Include="..\..\Goldman%27s Saloon\Classes\XinputManager.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />

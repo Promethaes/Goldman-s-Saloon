@@ -8,13 +8,15 @@ namespace Sedna {
 		Player(XinputController* CONTROLLER, const char* path, cocos2d::Scene* scene, unsigned playerNumber = 1, const cocos2d::Vec2 &LOCATION = cocos2d::Vec2(20, 20), float RADIUS = 20);
 
 		void update(float dt) override;
-		Stick pSticks[2];
 		void setGun(Gun* gun) { currentGun = gun; }
+		Gun* getGun() const { return currentGun; }
 		void die() override;
+		unsigned getPlayerNumber() const { return playerNumber; }
+		unsigned getScore() const { return score; }
+
 		bool invincible = false;
+		Stick pSticks[2];
 	private:
-		unsigned playerNumber;
-		float invincibilityTimer = 5.0f;//subject to change
 		void checkCollision(float dt);
 		bool kickTables();
 		void shoot(float dt);
@@ -26,6 +28,9 @@ namespace Sedna {
 		bool hasShot = false;
 		Gun* currentGun;
 		
+		unsigned score = 0;
+		unsigned playerNumber;
+		float invincibilityTimer = 5.0f;//subject to change
 
 		XinputController* pController;
 		Triggers pTriggers;

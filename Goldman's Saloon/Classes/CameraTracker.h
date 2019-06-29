@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "cocos2d.h"
+//change in ui as well if you change it here
 #define CAMERASPEED 1.0f
 
 namespace Sedna {
