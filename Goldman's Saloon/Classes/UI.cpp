@@ -2,7 +2,8 @@
 #include "cocos2d.h"
 #include "Guns.h"
 #include "Player.h"
-#define CAMERASPEED 1.0f
+#include "CameraTracker.h"
+//#define CAMERASPEED 1.0f
 
 
 Sedna::PlayerUI::PlayerUI(Player * P)
