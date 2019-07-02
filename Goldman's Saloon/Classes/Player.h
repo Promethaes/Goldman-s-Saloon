@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "XinputManager.h"
+#include "UI.h"
 namespace Sedna {
 	class Gun;
 	class Player : public GameObject {
@@ -17,6 +18,7 @@ namespace Sedna {
 		bool invincible = false;
 		Stick pSticks[2];
 	private:
+		PlayerUI* pUi;
 		void checkCollision(float dt);
 		bool kickTables();
 		void shoot(float dt);

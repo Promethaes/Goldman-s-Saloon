@@ -21,6 +21,8 @@ namespace Sedna {
 		hp = 3;
 #endif
 		currentGun = new theBiggestIron();// for now
+
+		pUi = new PlayerUI(this);
 	}
 
 
@@ -61,6 +63,7 @@ namespace Sedna {
 			x->update(dt);
 
 		updateGO(dt);
+		pUi->update(dt);
 	}
 
 	//might wanna make this not a pure virtual function in game object header

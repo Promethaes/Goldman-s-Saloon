@@ -15,5 +15,6 @@ namespace Sedna {
 		std::vector<cocos2d::Sprite*> hpSprites;
 		cocos2d::Label* scoreLabel;
 		cocos2d::Label* ammoLabel;
+		cocos2d::Sprite* gunSprite;
 	};
 }
